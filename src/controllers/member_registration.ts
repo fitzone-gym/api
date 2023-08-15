@@ -1,4 +1,5 @@
 import { Request, Response } from "express";
+import bcrypt from 'bcrypt'
 import mysql, {
         RowDataPacket,
         OkPacket,
@@ -22,6 +23,8 @@ export const MemberRegistration = async(req: Request, res: Response) => {
     try{
         const connection = await pool.getConnection();
         const{first_name, last_name, email, mobile_no, password} = req.body;
+        
+        const hashPassword = await bcrypt.hash(password, 10);
 
         const query = "INSERT INTO users(first_name, last_name, email, phone_no, password) VALUES(?,?,?,?,?)"
 
@@ -30,7 +33,7 @@ export const MemberRegistration = async(req: Request, res: Response) => {
             last_name,
             email,
             mobile_no,
-            password
+            hashPassword
         ]);
 
         connection.release(); // release the connection back to the pool

@@ -6,6 +6,8 @@ import mysql, {
 } from "mysql2/promise";
 import { generateResponse } from "../utils";
 import { Connection } from "mysql2/typings/mysql/lib/Connection";
+import bcrypt from 'bcrypt';
+import router from "src/routes/home";
 
 const pool = mysql.createPool({
 host: "localhost",
@@ -27,9 +29,16 @@ export const MemberLogin = async (req: Request,  res: Response) => {
         
         const query = "SELECT * FROM users WHERE email = ? "
 
-        const [result] = await connection.query(query, [email])
+        const [result]: any = await connection.query(query, [email])
 
-        console.log(result);
+        if(await bcrypt.compare(password, result[0].password)){
+            res.json(generateResponse(true,  result[0]))
+            
+        }else {
+            res.json(generateResponse(false, null, "login failed"))
+            
+        }
+// 
         
 
 
