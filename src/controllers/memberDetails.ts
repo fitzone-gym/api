@@ -2,7 +2,7 @@ import {Request, Response} from 'express';
 import mysql, {
     RowDataPacket,
     OkPacket,
-    FieldPacket,
+    FieldPacket, // json packet eka hadaganna me 3 use krnw.
 }from "mysql2/promise"; // Import the mysql2/promise library
 import { generateResponse } from "../utils";
 
@@ -21,8 +21,11 @@ try {
     const connection = await pool.getConnection(); 
 
     const query = "SELECT id, first_name, last_name from users WHERE user_role = 1";
+
+    // execute the query and store the result in 'result'
     const [result] = await connection.query<RowDataPacket[]>(query);   // store the data into the object
     connection.release();
+    // If successfully processed
     res.status(200).json(generateResponse(true,result));
 
 } catch (err) {
