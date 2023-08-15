@@ -21,16 +21,16 @@ const pool = mysql.createPool({
 export const MemberRegistration = async(req: Request, res: Response) => {
     try{
         const connection = await pool.getConnection();
-        const{first_name, last_name, email, mobile_no, gender} = req.body;
+        const{first_name, last_name, email, mobile_no, password} = req.body;
 
-        const query = "INSERT INTO users(first_name, last_name, email, phone_no, gender) VALUES(?,?,?,?,?)"
+        const query = "INSERT INTO users(first_name, last_name, email, phone_no, password) VALUES(?,?,?,?,?)"
 
         const [result]: [OkPacket, FieldPacket[]] = await connection.query(query, [
             first_name,
             last_name,
             email,
             mobile_no,
-            gender
+            password
         ]);
 
         connection.release(); // release the connection back to the pool
