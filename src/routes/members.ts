@@ -1,8 +1,8 @@
 import express from "express"
-import { getMemberCount } from "../controllers/members";
+import { getAllMembers } from "../controllers/members";
 
 const router = express.Router()
 
-router.get("/", getMemberCount);
+router.get("/", getAllMembers);
 
 export default router

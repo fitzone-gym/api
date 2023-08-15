@@ -2,7 +2,9 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import homeRoutes from './routes/home';
 import membersRoutes from "./routes/members";
-import managerRoutes from "./routes/manager"
+import trainerRoutes from "./routes/trainer";
+import announcementRoutes from "./routes/announcement";
+
 const cors = require("cors"); 
 
 const app = express();
@@ -14,11 +16,14 @@ app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended:true}));
 
+app.use("/members", membersRoutes);
+app.use('/trainers',trainerRoutes);
 app.use('/', homeRoutes);
-app.use("/users", membersRoutes);
-app.use('/staff?type=trainer',managerRoutes)
+app.use('/announcement', announcementRoutes);
 
-app.listen(8081, () =>{
-    console.log('server is running on port 8081.');
+// app.use('/trainers/:trainer_id',trainerRoutes);
+
+app.listen(5400, () =>{
+    console.log('server is running on port 5400.');
 }) 
 
