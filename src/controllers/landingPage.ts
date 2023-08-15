@@ -104,7 +104,7 @@ export const getUserFeedbacksForTestimonial = async (req: Request, res: Response
     // if successfully processed
     res.status(200).json(generateResponse(true, result));
   } catch (err) {
-    console.error("Error in getFeedbacks:", err);
+    console.error("Error in getTrainerDetails:", err);
     res
       .status(500)
       .json(generateResponse(false, null, "Error fetching user feedback details"));
