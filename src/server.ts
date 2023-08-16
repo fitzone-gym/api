@@ -5,7 +5,12 @@ import membersRoutes from "./routes/members";
 import trainerRoutes from "./routes/trainer";
 import announcementRoutes from "./routes/announcement";
 
-const cors = require("cors"); 
+
+
+
+
+import AuthRoutes from "./routes/auth";
+import cors from "cors"; 
 
 const app = express();
 
@@ -22,8 +27,8 @@ app.use('/', homeRoutes);
 app.use('/announcement', announcementRoutes);
 
 // app.use('/trainers/:trainer_id',trainerRoutes);
+app.use("/auth", AuthRoutes);
 
 app.listen(5400, () =>{
     console.log('server is running on port 5400.');
 }) 
-
