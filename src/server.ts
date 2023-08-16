@@ -18,6 +18,10 @@ import { Request, Response } from 'express';
 
 import trainerDetailsRoutes from "./routes/ourTrainers";
 
+import landingPageRoute from "./routes/landingPage";
+import contactUs from "./routes/contactUs";
+import memberLoginWeb from "./routes/memberLoginWeb";
+
 
 const app = express();
 
@@ -32,6 +36,11 @@ app.use("/members", membersRoutes);
 app.use('/trainers',trainerRoutes);
 app.use('/', homeRoutes);
 app.use('/announcement', announcementRoutes);
+
+
+app.use("/landingPage", landingPageRoute);
+app.use("/contactUsSubmition", contactUs);
+app.use("/memberLoginWeb", memberLoginWeb)
 
 // app.use('/trainers/:trainer_id',trainerRoutes);
 app.use("/auth", AuthRoutes);
