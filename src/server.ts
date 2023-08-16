@@ -14,6 +14,7 @@ import contactUs from "./routes/contactUs";
 import memberLoginWeb from "./routes/memberLoginWeb";
 import memberDetailsRoutes from "./routes/memberDetails"
 import dashboardRoutes from "./routes/trainerDashboard"
+import receptionistRoutes from './routes/receptionist'
 
 const app = express();
 
@@ -25,6 +26,10 @@ app.use(bodyParser.urlencoded({extended:true}));
 app.get('/health', (req:Request, res:Response) => {
     res.send("Alive and well!")
 })
+
+app.use("/receptionist", receptionistRoutes);
+app.use("/memberDetails", membersRoutes);
+app.use("/trainerDetails", trainerRoutes)
 
 app.use('/', homeRoutes);
 
