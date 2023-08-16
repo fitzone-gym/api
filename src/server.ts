@@ -12,6 +12,13 @@ import announcementRoutes from "./routes/announcement";
 import AuthRoutes from "./routes/auth";
 import cors from "cors"; 
 
+import { Request, Response } from 'express';
+
+
+
+import trainerDetailsRoutes from "./routes/ourTrainers";
+
+
 const app = express();
 
 app.use(cors());
@@ -28,7 +35,12 @@ app.use('/announcement', announcementRoutes);
 
 // app.use('/trainers/:trainer_id',trainerRoutes);
 app.use("/auth", AuthRoutes);
+app.get('/health', (req:Request, res:Response) => {
+    res.send("Alive and well!")
+})
 
-app.listen(5400, () =>{
+app.use("/ourTrainers", trainerDetailsRoutes);
+
+app.listen(5400, '0.0.0.0', () =>{
     console.log('server is running on port 5400.');
 }) 
