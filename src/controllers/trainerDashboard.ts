@@ -22,7 +22,7 @@ export const getAvailableNotices = async (req:Request, res:Response) =>{
         const connection = await pool.getConnection();  
 
         const query = "SELECT annoucement_id, title, description, create_date from  announcement"
-        console.log(query);
+        // console.log(query);
         const [result] = await connection.query<RowDataPacket[]>(query);
         connection.release();
         res.status(200).json(generateResponse(true,result));
@@ -40,7 +40,7 @@ export const getMemberCount = async (req: Request, res: Response) => {
         const query = "SELECT count(*) as workingMembers FROM members"; 
 
         // Execute the query
-        console.log(query);
+        // console.log(query);
         const [result] = await connection.query<RowDataPacket[]>(query);
         connection.release();
         res.status(200).json(generateResponse(true,result));
