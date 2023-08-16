@@ -118,7 +118,7 @@ export const contactUsFormSubmition = async (req: Request, res: Response) => {
     const connection = await pool.getConnection(); // Use await to get a connection from the pool
     const { name, email, subject, message } = req.body;
     const query =
-      "INSERT INTO contact_us_submitions (submition_id, name, email, subject, message) VALUES (10002,?, ?, ?, ?);";
+      "INSERT INTO contact_us_submitions ( name, email, subject, message) VALUES (?, ?, ?, ?);";
     const [result]: [OkPacket, FieldPacket[]] = await connection.query(query, [
       name,
       email,
