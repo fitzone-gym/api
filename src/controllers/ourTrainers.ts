@@ -40,3 +40,35 @@ export const getTrainerDetails = async(req: Request, res: Response) => {
         .json(generateResponse(false, null, "Error fetching user feedback details"));
     }
 }
+
+export const getTrainerDetailsbyID = async(req: Request, res: Response) => {
+    try{
+
+        const user_id = req.params.id
+
+        const connection = await pool.getConnection();
+
+        const query = "SELECT users.id,users.first_name,users.last_name,users.profile_picture, users.email, users.phone_no, users.dob, users.gender, trainers.working_experience, trainers.qualification FROM users INNER JOIN trainers ON trainers.user_id = users.id WHERE trainers.user_id = ? "
+
+        const [result] = await connection.query<RowDataPacket[]>(query, [user_id]);
+
+        const trainerData = result[0];
+        
+        const dob = new Date(trainerData.dob);
+        const diff = new Date(Date.now() - dob.getTime());
+        const age = diff.getUTCFullYear() - 1970;
+
+        connection.release();
+
+        res.status(200).json(generateResponse(true,{
+            ...trainerData,
+            age
+        }))
+    }
+    catch(err){
+        console.error("Error in get Trainer details:",err);
+        res
+        .status(500)
+        .json(generateResponse(false, null, "Error fetching user feedback details"));
+    }
+}
