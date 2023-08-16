@@ -14,6 +14,7 @@ const pool = mysql.createPool({
 
   export const getAllAnnouncement = (req: Request, res: Response) => {
     const announcementId = req.params.id; // Assuming you pass the announcement ID as a URL parameter
+    console.log(announcementId)
 
     try {
         pool.getConnection((err, connection) => {
@@ -66,8 +67,11 @@ const pool = mysql.createPool({
   export const updateAnnouncement = (req: Request, res: Response) => {
     const announcementId = req.params.id;
     const updatedData = req.body;
-  
+
     console.log("update");
+    const recepientsArray = updatedData.recepients.includes(',') ? updatedData.recepients.split(',').map((item: string) => item.trim()) : [updatedData.for];
+    console.log(recepientsArray);
+  
     console.log(announcementId);
     console.log(updatedData);
     try {
@@ -80,12 +84,12 @@ const pool = mysql.createPool({
         }
   
         const query = `UPDATE announcement
-        SET \`for\` = ?, description = ?
+        SET \`for\` = ?, description = ?, title = ?
         WHERE announcement_id = ?`;
         
         connection.query(
             query,
-            [updatedData.for, updatedData.description, announcementId],
+            [recepientsArray.join(', '), updatedData.description, updatedData.title, announcementId],
             (error, results) => {
           connection.release();
   

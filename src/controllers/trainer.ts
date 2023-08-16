@@ -45,6 +45,7 @@ export const getAllTrainers = (req: Request, res: Response) => {
   
         // Execute the query
         connection.query(query, (err, result) => {
+         
           // Release the connection back to the pool
           connection.release();
   
@@ -93,6 +94,7 @@ export const getAllTrainers = (req: Request, res: Response) => {
 
       // Execute the insert query with the provided data
       connection.query(insertQuery, [first_name, last_name, phone_no, email, role_id, username, password], (err, result) => {
+        
         if (err) {
           connection.release(); // Release the connection back to the pool
           console.error('Error adding trainer:', err);
