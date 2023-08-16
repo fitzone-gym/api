@@ -14,7 +14,7 @@ const pool = mysql.createPool({
 });
 
 
-export const getAllMembers = (req: Request, res: Response) => {
+export const getMemberProfile = (req: Request, res: Response) => {
   try {
     pool.getConnection((err, connection) => {
       if (err) {
@@ -26,7 +26,9 @@ export const getAllMembers = (req: Request, res: Response) => {
           );
       }
 
-      const query = `SELECT * FROM users WHERE role_id = 1 `;
+      const query = `SELECT * FROM users  WHERE user_id = 5 `;
+
+    
 
       // Execute the query
       connection.query(query, (err, result) => {
@@ -58,3 +60,4 @@ export const getAllMembers = (req: Request, res: Response) => {
       );
   }
 };
+

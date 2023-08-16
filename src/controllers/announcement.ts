@@ -14,7 +14,7 @@ const pool = mysql.createPool({
 });
 
 
-export const getAllMembers = (req: Request, res: Response) => {
+export const getAnnouncements_Receptionist = (req: Request, res: Response) => {
   try {
     pool.getConnection((err, connection) => {
       if (err) {
@@ -26,7 +26,7 @@ export const getAllMembers = (req: Request, res: Response) => {
           );
       }
 
-      const query = `SELECT * FROM users WHERE role_id = 1 `;
+      const query = `SELECT * FROM Announcement WHERE Receiver = 'Receptionist' `;
 
       // Execute the query
       connection.query(query, (err, result) => {
@@ -34,7 +34,7 @@ export const getAllMembers = (req: Request, res: Response) => {
         connection.release();
 
         if (err) {
-          console.error("Error fetching members:", err);
+          console.error("Error fetching Announcements", err);
           return res
             .status(500)
             .json(
@@ -50,11 +50,11 @@ export const getAllMembers = (req: Request, res: Response) => {
       });
     });
   } catch (err) {
-    console.error("Error in getmembersDetails:", err);
+    console.error("Error in getting Announcements:", err);
     res
       .status(500)
       .json(
-        generateResponse(false, null, "Error fetching members")
+        generateResponse(false, null, "Error fetching Announcements")
       );
   }
 };
