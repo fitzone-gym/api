@@ -20,6 +20,7 @@ interface ResultType {
   workingMembers: number;
   courseCompleteMembers: number;
   workingTrainers: number;
+  feedbackCount:number;
 }
 
 export const getCountsForCounterSection = async (req: Request, res: Response) => {
@@ -32,16 +33,19 @@ export const getCountsForCounterSection = async (req: Request, res: Response) =>
       "SELECT count(*) as courseCompleteMembers FROM users where user_role=1 AND status=0";
     const trainerCountQuery =
       "SELECT count(*) as workingTrainers FROM users where user_role=2 AND status=1";
-
+    const complaintCountQuery =
+      "SELECT count(*) as feedbackCount FROM feedback";
     // Execute the queries and perform a custom type assertion to inform TypeScript about the shape of the results
     const [
       workingMembersResult,
       courseCompleteMembersResult,
       trainerCountResult,
+      feedbackCountResult,
     ] = await Promise.all([
       connection.query<RowDataPacket[]>(workingMembersQuery),
       connection.query<RowDataPacket[]>(courseCompleteMembersQuery),
       connection.query<RowDataPacket[]>(trainerCountQuery),
+      connection.query<RowDataPacket[]>(complaintCountQuery),
     ]);
 
     connection.release(); // Release the connection back to the pool
@@ -51,6 +55,7 @@ export const getCountsForCounterSection = async (req: Request, res: Response) =>
       courseCompleteMembers:
         courseCompleteMembersResult[0][0].courseCompleteMembers,
       workingTrainers: trainerCountResult[0][0].workingTrainers,
+      feedbackCount: feedbackCountResult[0][0].feedbackCount,
     };
 
     // if successfully processed

@@ -32,7 +32,7 @@ export const MemberLogin = async (req: Request, res: Response) => {
     //   res.json(generateResponse(false, null, "login failed"));
     // }
 
-    // console.log(bcrypt(password));
+    //console.log(bcrypt(password));
 
     if ((password === result[0].password)) {
       res.json(generateResponse(true, result[0]));
