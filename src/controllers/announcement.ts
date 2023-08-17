@@ -2,6 +2,7 @@ import {Request, Response} from 'express';
 import mysql from "mysql2";
 import { generateResponse } from "../utils";
 
+
 const pool = mysql.createPool({
     host: "localhost",
     user: "root",
@@ -162,19 +163,6 @@ const pool = mysql.createPool({
   export const addAnnouncement = (req: Request, res: Response) => {
   
   };
-import { RowDataPacket, OkPacket, FieldPacket } from 'mysql2/promise';
-import { generateResponse } from "../utils";
-
-const pool = mysql.createPool({
-  host: "localhost",
-  user: "root",
-  password: "",
-  database: "fit_zone",
-  waitForConnections: true,
-  connectionLimit: 10,
-  queueLimit: 0,
-});
-
 
 export const getAnnouncements_Receptionist = (req: Request, res: Response) => {
   try {
