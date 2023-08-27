@@ -10,4 +10,6 @@ router.get("/", getMembersDetails);
 router.get("/Announcements", getAnnouncements_Receptionist);
 
 
+
+
 export default router
