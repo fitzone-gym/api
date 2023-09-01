@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import mysql, { RowDataPacket, OkPacket, FieldPacket } from "mysql2/promise"; // Import the mysql2/promise library
-import { generateResponse } from "../utils";
+import { generateResponse } from "../../utils";
 
 const pool = mysql.createPool({
   host: "localhost",

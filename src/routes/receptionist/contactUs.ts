@@ -2,7 +2,7 @@ import express from "express";
 import {
   contactUsRequestView,
   contactUsFormReplySubmition,
-} from "../controllers/contactUs";
+} from "../../controllers/receptionist/contactUs";
 
 const router = express.Router();
 

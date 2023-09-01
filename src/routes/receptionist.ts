@@ -1,7 +1,7 @@
 import express from "express"
 import { getTrainerDetails } from "src/controllers/receptionist";
 import { getMembersDetails } from "../controllers/receptionist";
-import { getAnnouncements_Receptionist } from "../controllers/announcement";
+import { getAnnouncements_Receptionist } from "../controllers/manager/announcement";
 
 const router = express.Router()
 

@@ -4,7 +4,7 @@ import {
   getTrainerDetails,
   getUserFeedbacksForTestimonial,
   contactUsFormSubmition,
-} from "../controllers/landingPage";
+} from "../../controllers/users/landingPage";
 
 const router = express.Router()
 
