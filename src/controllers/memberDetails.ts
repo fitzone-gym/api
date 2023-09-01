@@ -47,8 +47,6 @@ export const getTrainerDetailsById = async (req:Request, res:Response) => {
         const [result] = await connection.query<RowDataPacket[]>(query, [req.params.id]);   // store the data into the object
         console.log(result[0]);
 
-        console.log(result[0]);
-        
 
         
     const dob = new Date(result[0].dob)
