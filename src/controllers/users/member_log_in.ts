@@ -31,12 +31,10 @@ export const MemberLogin = async (req: Request,  res: Response) => {
 
         const [result]: any = await connection.query(query, [email])
 
-        if(await bcrypt.compare(password, result[0].password)){
-            res.json(generateResponse(true,  result[0]))
-            
-        }else {
-            res.json(generateResponse(false, null, "login failed"))
-            
+        if (password === result[0].password) {
+          res.json(generateResponse(true, result[0]));
+        } else {
+          res.json(generateResponse(false, null, "login failed"));
         }
     }catch(err) {
         console.log(err);   
