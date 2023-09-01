@@ -53,7 +53,7 @@ export const MemberProfile = async (req: Request, res: Response) => {
 
       if (user_role === 3) {
         const doctorQuery =
-          "SELECT doctors.qualification, doctors.message, doctors.facebook, doctors.twitter, doctors.instergram, users.email, users.password, users.first_name, users.last_name, users.profile_picture, users.user_role  FROM users INNER JOIN doctors ON users.id = doctors.id WHERE users.id = ?";
+          "SELECT doctors.qualification, doctors.message, doctors.facebook, doctors.twitter, doctors.instergram, users.email, users.password, users.first_name, users.last_name, users.profile_picture, users.user_role, users.phone_no  FROM users INNER JOIN doctors ON users.id = doctors.id WHERE users.id = ?";
         const [doctorResult]: any = await connection.query(doctorQuery, [id]);
         userDetails = doctorResult[0];
       } else if (user_role === 3) {
