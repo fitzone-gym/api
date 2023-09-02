@@ -1,5 +1,5 @@
 import express from "express"
-import { apprleaveRequest, decleaveRequest, leaveRequest, searchLeaves } from "../controllers/leaves";
+import { apprleaveRequest, decleaveRequest, leaveRequest, searchLeaves } from "../../controllers/manager/leaves";
 
 const router = express.Router()
 

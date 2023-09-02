@@ -4,27 +4,35 @@ import bodyParser from 'body-parser';
 import cors from "cors"; 
 
 import homeRoutes from './routes/home';
-import membersRoutes from "./routes/members";
-import trainerRoutes from "./routes/trainer";
-import memberDetailsRoutes from "./routes/memberDetails";
-import dashboardRoutes from "./routes/trainerDashboard";
-import receptionistRoutes from "./routes/receptionist";
-import trainerDetailsRoutes from "./routes/ourTrainers";
+
 
 import announcementRoutes from "./routes/manager/announcement";
 import AuthRoutes from "./routes/users/auth";
 import landingPageRoute from "./routes/users/landingPage";
 import contactUs from "./routes/receptionist/contactUs";
+import memberDetailsRoutes from "./routes/receptionist/memberDetails";
+import trainerDetailsRoutes from "./routes/member/ourTrainers";
+import membersRoutes from "./routes/manager/members";
+import trainerRoutes from "./routes/manager/trainer";
+import leavesRoutes from "./routes/manager/leaves";
+import doctorRoutes from "./routes/manager/doctor";
+import receptionistDetailsRoutes from "./routes/manager/receptionistDetails";
+import memberDetailsRoutesForTrainers from "./routes/trainer/memberDetails";
+import dashboardRoutes from "./routes/trainer/trainerDashboard";
+import receptionistRoutes from "./routes/receptionist/receptionist";
+
+
+
+// import dashboardRoutes from "./routes/trainerDashboard";
 
 // import landingPageRoute from "./routes/landingPage";
 // import contactUs from "./routes/contactUs";
-import memberLoginWeb from "./routes/memberLoginWeb";
-import memberDetailsRoutes from "./routes/memberDetails"
-import dashboardRoutes from "./routes/trainerDashboard"
-import receptionistRoutes from './routes/receptionist'
-import doctorRoutes from './routes/doctor'
-import receptionistDetailsRoutes from './routes/receptionistDetails'
-import leavesRoutes from './routes/leaves'
+// import memberLoginWeb from "./routes/memberLoginWeb";
+
+
+// import receptionistRoutes from './routes/receptionist'
+
+
 
 const app = express();
 
@@ -55,6 +63,7 @@ app.use('/leaves', leavesRoutes)
 
 
 app.use("/memberDetails", memberDetailsRoutes );
+app.use("/memberDetailsRoutesForTrainers", memberDetailsRoutesForTrainers);
 app.use("/dashboard", dashboardRoutes );
 
 app.use("/landingPage", landingPageRoute);

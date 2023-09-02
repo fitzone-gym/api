@@ -1,7 +1,7 @@
 import express from "express"
-import { getAllTrainers, searchTrainers } from "../controllers/trainer";
-import { deleteTrainer } from "../controllers/trainer";
-import { addTrainer } from "../controllers/trainer";
+import { getAllTrainers, searchTrainers } from "../../controllers/manager/trainer";
+import { deleteTrainer } from "../../controllers/manager/trainer";
+import { addTrainer } from "../../controllers/manager/trainer";
 
 const router = express.Router()
 

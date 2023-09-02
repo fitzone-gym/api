@@ -2,7 +2,7 @@ import express from "express"
 import{
     getTrainerDetails,
     getTrainerDetailsbyID
-} from "../controllers/ourTrainers";
+} from "../../controllers/member/ourTrainers";
 
 const router = express.Router();
 

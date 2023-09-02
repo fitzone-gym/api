@@ -1,6 +1,6 @@
 import {Request, Response} from 'express';
 import mysql from "mysql2";
-import { generateResponse } from "../utils";
+import { generateResponse } from "../../utils";
 
 interface InsertResult {
   affectedRows: number;

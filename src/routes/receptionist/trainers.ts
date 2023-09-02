@@ -1,5 +1,5 @@
 import express from "express"
-import { getAllTrainers } from "../controllers/trainers";
+import { getAllTrainers } from "../../controllers/receptionist/trainers";
 
 const router = express.Router()
 
