@@ -16,6 +16,15 @@ import AuthRoutes from "./routes/users/auth";
 import landingPageRoute from "./routes/users/landingPage";
 import contactUs from "./routes/receptionist/contactUs";
 
+// import landingPageRoute from "./routes/landingPage";
+// import contactUs from "./routes/contactUs";
+import memberLoginWeb from "./routes/memberLoginWeb";
+import memberDetailsRoutes from "./routes/memberDetails"
+import dashboardRoutes from "./routes/trainerDashboard"
+import receptionistRoutes from './routes/receptionist'
+import doctorRoutes from './routes/doctor'
+import receptionistDetailsRoutes from './routes/receptionistDetails'
+import leavesRoutes from './routes/leaves'
 
 const app = express();
 
@@ -40,6 +49,9 @@ app.use("/auth", AuthRoutes);
 app.use("/members", membersRoutes);
 app.use('/trainers',trainerRoutes);
 app.use('/announcement', announcementRoutes);
+app.use('/doctor', doctorRoutes);
+app.use('/receptionistDetails', receptionistDetailsRoutes);
+app.use('/leaves', leavesRoutes)
 
 
 app.use("/memberDetails", memberDetailsRoutes );

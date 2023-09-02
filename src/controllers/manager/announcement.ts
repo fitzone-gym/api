@@ -176,7 +176,7 @@ export const getAnnouncements_Receptionist = (req: Request, res: Response) => {
           );
       }
 
-      const query = `SELECT * FROM Announcement WHERE Receiver = 'Receptionist' `;
+      const query = `SELECT * FROM announcement2 WHERE for = 'Receptionist' `;
 
       // Execute the query
       connection.query(query, (err, result) => {

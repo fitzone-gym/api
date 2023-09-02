@@ -67,6 +67,63 @@ export const getAllMembers = (req: Request, res: Response) => {
   }
 };
 
+export const searchMembers = (req: Request, res: Response) => {
+  try {
+    const { searchTerm } = req.query; // Assuming the search term is passed as a query parameter
+
+    pool.getConnection((err, connection) => {
+      if (err) {
+        console.error("Error connecting to the database:", err);
+        return res
+          .status(500)
+          .json(
+            generateResponse(false, null, "Database connection error")
+          );
+      }
+
+      const query =
+        `SELECT u.first_name, 
+                u.last_name, 
+                u.email,
+                u.phone_no,
+                m.package
+        FROM users AS u
+        INNER JOIN members AS m ON u.user_id = m.user_id
+        WHERE u.role_id = 1
+        AND (u.first_name LIKE ? OR u.last_name LIKE ? OR m.package LIKE ?);`;
+
+      const searchPattern = `%${searchTerm}%`; // Add wildcard for partial matching
+
+      // Execute the query with search parameters
+      connection.query(query, [searchPattern, searchPattern, searchPattern], (err, result) => {
+        // Release the connection back to the pool
+        connection.release();
+
+        if (err) {
+          console.error("Error searching members:", err);
+          return res
+            .status(500)
+            .json(
+              generateResponse(false, null, "Error searching members")
+            );
+        }
+
+        // if successfully process
+        res
+          .status(200)
+          .json(generateResponse(true, result));
+      });
+    });
+  } catch (err) {
+    console.error("Error in searchMembers:", err);
+    res
+      .status(500)
+      .json(
+        generateResponse(false, null, "Error searching members")
+      );
+  }
+};
+
 
 // export const getMemberCount = (req: Request, res: Response) => {
 //   try {

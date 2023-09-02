@@ -159,4 +159,57 @@ export const getTrainerDetails = (req: Request, res: Response) => {
         };
     
     
-  
+        export const getAllReceptionists = (req: Request, res: Response) => {
+          try {
+            pool.getConnection((err, connection) => {
+              console.log("awa");
+              if (err) {
+                console.error("Error connecting to the database:", err);
+                return res
+                  .status(500)
+                  .json(
+                    generateResponse(false, null, "Database connection error")
+                  );
+              }
+        
+              const query =
+               `SELECT first_name, 
+                       last_name, 
+                       address, 
+                       email, 
+                       phone_no
+                     FROM users
+                    WHERE role_id = 5;`;
+        
+              // Execute the query
+              connection.query(query, (err, result) => {
+               
+                // Release the connection back to the pool
+                connection.release();
+        
+                if (err) {
+                  console.error("Error fetching doctor:", err);
+                  return res
+                    .status(500)
+                    .json(
+                      generateResponse(false, null, "Error fetching users")
+                    );
+                }
+        
+                // if successfully process
+                // console.log("Hello")
+                res
+                  .status(200)
+                  .json(generateResponse(true, result));
+              });
+            });
+          } catch (err) {
+            console.error("Error in getdoctorDetails:", err);
+            res
+              .status(500)
+              .json(
+                generateResponse(false, null, "Error fetching doctor")
+              );
+          }
+        };
+      

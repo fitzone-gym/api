@@ -204,3 +204,39 @@ export const getAllTrainers = (req: Request, res: Response) => {
     }
   };
   
+// Assuming you already have the required imports and setup for Express and MySQL
+
+export const searchTrainers = (req: Request, res: Response) => {
+  try {
+    const searchTerm = req.query.searchTerm; // Get the search term from the query parameters
+
+    // Create the SQL query to search for trainers by name
+    const query = `
+      SELECT u.first_name, 
+             u.last_name, 
+             t.working_experience, 
+             u.email, 
+             u.phone_no, 
+             t.trainer_id
+      FROM users AS u
+      INNER JOIN trainers AS t ON u.user_id = t.user_id
+      WHERE u.role_id = 2
+      AND (u.first_name LIKE ? OR u.last_name LIKE ? OR CONCAT(u.first_name, ' ', u.last_name) LIKE ?);`;
+
+    const searchTermWithWildcards = `%${searchTerm}%`; // Add wildcards for searching
+
+    // Execute the query with the search term
+    pool.query(query, [searchTermWithWildcards, searchTermWithWildcards, searchTermWithWildcards], (err, result) => {
+      if (err) {
+        console.error("Error searching for trainers:", err);
+        return res.status(500).json(generateResponse(false, null, "Error searching for trainers"));
+      }
+
+      res.status(200).json(generateResponse(true, result));
+    });
+  } catch (err) {
+    console.error("Error in searchTrainersByName:", err);
+    res.status(500).json(generateResponse(false, null, "Error searching for trainers"));
+  }
+};
+
