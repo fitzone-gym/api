@@ -10,4 +10,5 @@ router.delete("/:trainer_id", deleteTrainer);
 router.post("/add", addTrainer);
 router.get("/searchTrainers", searchTrainers)
 
+
 export default router

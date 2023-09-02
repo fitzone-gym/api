@@ -239,3 +239,4 @@ export const searchTrainers = (req: Request, res: Response) => {
     res.status(500).json(generateResponse(false, null, "Error searching for trainers"));
   }
 };
+

@@ -17,6 +17,7 @@ import dashboardRoutes from "./routes/trainerDashboard"
 import receptionistRoutes from './routes/receptionist'
 import doctorRoutes from './routes/doctor'
 import receptionistDetailsRoutes from './routes/receptionistDetails'
+import leavesRoutes from './routes/leaves'
 
 const app = express();
 
@@ -41,7 +42,9 @@ app.use("/members", membersRoutes);
 app.use('/trainers',trainerRoutes);
 app.use('/announcement', announcementRoutes);
 app.use('/doctor', doctorRoutes);
-app.use('/receptionistDetails', receptionistDetailsRoutes)
+app.use('/receptionistDetails', receptionistDetailsRoutes);
+app.use('/leaves', leavesRoutes)
+
 
 app.use("/memberDetails", memberDetailsRoutes );
 app.use("/dashboard", dashboardRoutes );
