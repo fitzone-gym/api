@@ -4,17 +4,36 @@ import bodyParser from 'body-parser';
 import cors from "cors"; 
 
 import homeRoutes from './routes/home';
-import membersRoutes from "./routes/members";
-import trainerRoutes from "./routes/trainer";
-import announcementRoutes from "./routes/announcement";
-import AuthRoutes from "./routes/auth";
-import trainerDetailsRoutes from "./routes/ourTrainers";
-import landingPageRoute from "./routes/landingPage";
-import contactUs from "./routes/contactUs";
-import memberLoginWeb from "./routes/memberLoginWeb";
-import memberDetailsRoutes from "./routes/memberDetails"
-import dashboardRoutes from "./routes/trainerDashboard"
-import receptionistRoutes from './routes/receptionist'
+
+
+import announcementRoutes from "./routes/manager/announcement";
+import AuthRoutes from "./routes/users/auth";
+import landingPageRoute from "./routes/users/landingPage";
+import contactUs from "./routes/receptionist/contactUs";
+import memberDetailsRoutes from "./routes/receptionist/memberDetails";
+import trainerDetailsRoutes from "./routes/member/ourTrainers";
+import workoutSheduleRoutes from "./routes/member/workoutSchedule";
+import membersRoutes from "./routes/manager/members";
+import trainerRoutes from "./routes/manager/trainer";
+import leavesRoutes from "./routes/manager/leaves";
+import doctorRoutes from "./routes/manager/doctor";
+import receptionistDetailsRoutes from "./routes/manager/receptionistDetails";
+import memberDetailsRoutesForTrainers from "./routes/trainer/memberDetails";
+import dashboardRoutes from "./routes/trainer/trainerDashboard";
+import receptionistRoutes from "./routes/receptionist/receptionist";
+
+
+
+// import dashboardRoutes from "./routes/trainerDashboard";
+
+// import landingPageRoute from "./routes/landingPage";
+// import contactUs from "./routes/contactUs";
+// import memberLoginWeb from "./routes/memberLoginWeb";
+
+
+// import receptionistRoutes from './routes/receptionist'
+
+
 
 const app = express();
 
@@ -22,6 +41,7 @@ app.use(cors());
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended:true}));
+
 
 app.get('/health', (req:Request, res:Response) => {
     res.send("Alive and well!")
@@ -38,16 +58,20 @@ app.use("/auth", AuthRoutes);
 app.use("/members", membersRoutes);
 app.use('/trainers',trainerRoutes);
 app.use('/announcement', announcementRoutes);
+app.use('/doctor', doctorRoutes);
+app.use('/receptionistDetails', receptionistDetailsRoutes);
+app.use('/leaves', leavesRoutes)
 
 
 app.use("/memberDetails", memberDetailsRoutes );
+app.use("/memberDetailsRoutesForTrainers", memberDetailsRoutesForTrainers);
 app.use("/dashboard", dashboardRoutes );
 
 app.use("/landingPage", landingPageRoute);
 app.use("/contactUsSubmition", contactUs);
-app.use("/memberLoginWeb", memberLoginWeb)
 
 app.use("/ourTrainers", trainerDetailsRoutes);
+app.use("/workoutShedule", workoutSheduleRoutes)
 
 app.listen(5400, '0.0.0.0', () =>{
     console.log('server is running on port 5400.');
