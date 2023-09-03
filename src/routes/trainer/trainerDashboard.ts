@@ -1,6 +1,6 @@
 import express from 'express';
 
-import {getAvailableNotices, getMemberCount} from '../controllers/trainerDashboard'
+import {getAvailableNotices, getMemberCount} from '../../controllers/trainer/trainerDashboard'
 const router = express.Router();
 
 router.get('/', async(req, res) =>{

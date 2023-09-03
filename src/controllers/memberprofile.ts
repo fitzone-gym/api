@@ -1,18 +1,20 @@
 import {Request, Response} from 'express';
 import mysql from "mysql2";
+import { RowDataPacket, OkPacket, FieldPacket } from 'mysql2/promise';
 import { generateResponse } from "../utils";
 
 const pool = mysql.createPool({
   host: "localhost",
   user: "root",
   password: "",
-  database: "fitzone",
+  database: "fit_zone",
   waitForConnections: true,
   connectionLimit: 10,
   queueLimit: 0,
 });
 
-export const getMemberCount = (req: Request, res: Response) => {
+
+export const getMemberProfile = (req: Request, res: Response) => {
   try {
     pool.getConnection((err, connection) => {
       if (err) {
@@ -24,7 +26,9 @@ export const getMemberCount = (req: Request, res: Response) => {
           );
       }
 
-      const query = "SELECT count(*) as workingMembers FROM members";
+      const query = `SELECT * FROM users  WHERE user_id = 5 `;
+
+    
 
       // Execute the query
       connection.query(query, (err, result) => {
@@ -41,13 +45,14 @@ export const getMemberCount = (req: Request, res: Response) => {
         }
 
         // if successfully process
+        // console.log("Hello")
         res
           .status(200)
           .json(generateResponse(true, result));
       });
     });
   } catch (err) {
-    console.error("Error in getMemberCount:", err);
+    console.error("Error in getmembersDetails:", err);
     res
       .status(500)
       .json(
@@ -55,3 +60,4 @@ export const getMemberCount = (req: Request, res: Response) => {
       );
   }
 };
+

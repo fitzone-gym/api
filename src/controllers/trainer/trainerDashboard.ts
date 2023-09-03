@@ -5,7 +5,7 @@ import mysql, {
         OkPacket,
         FieldPacket
     }from "mysql2/promise"; 
-import { generateResponse } from "../utils";
+import { generateResponse } from "../../utils";
 
 const pool = mysql.createPool({
     host : 'localhost',

@@ -1,7 +1,7 @@
 import express from "express"
-import { getMemberDetails, getTrainerDetailsById } from "../controllers/memberDetails";
+import { getMemberDetails, getTrainerDetailsById } from "../../controllers/trainer/memberDetails";
 
-import {getWorkoutSchedule,createWorkoutSchedule, getExerciseList} from "../controllers/workoutSchedule";
+import {getWorkoutSchedule,createWorkoutSchedule, getExerciseList} from "../../controllers/trainer/workoutSchedule";
 
 const router = express.Router()
 
