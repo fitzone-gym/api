@@ -12,6 +12,7 @@ import landingPageRoute from "./routes/users/landingPage";
 import contactUs from "./routes/receptionist/contactUs";
 import memberDetailsRoutes from "./routes/receptionist/memberDetails";
 import trainerDetailsRoutes from "./routes/member/ourTrainers";
+import workoutSheduleRoutes from "./routes/member/workoutSchedule";
 import membersRoutes from "./routes/manager/members";
 import trainerRoutes from "./routes/manager/trainer";
 import leavesRoutes from "./routes/manager/leaves";
@@ -70,6 +71,7 @@ app.use("/landingPage", landingPageRoute);
 app.use("/contactUsSubmition", contactUs);
 
 app.use("/ourTrainers", trainerDetailsRoutes);
+app.use("/workoutShedule", workoutSheduleRoutes)
 
 app.listen(5400, '0.0.0.0', () =>{
     console.log('server is running on port 5400.');
