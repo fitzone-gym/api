@@ -15,6 +15,7 @@ import memberLoginWeb from "./routes/memberLoginWeb";
 import memberDetailsRoutes from "./routes/memberDetails"
 import dashboardRoutes from "./routes/trainerDashboard"
 import receptionistRoutes from './routes/receptionist'
+import workoutScheduleRoutes from "./routes/workoutSchedule"
 
 const app = express();
 
@@ -48,6 +49,7 @@ app.use("/contactUsSubmition", contactUs);
 app.use("/memberLoginWeb", memberLoginWeb)
 
 app.use("/ourTrainers", trainerDetailsRoutes);
+app.use("/workoutSchedule", workoutScheduleRoutes);
 
 app.listen(5400, '0.0.0.0', () =>{
     console.log('server is running on port 5400.');
