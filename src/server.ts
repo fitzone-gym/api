@@ -64,7 +64,7 @@ app.use('/leaves', leavesRoutes)
 
 
 app.use("/memberDetails", memberDetailsRoutes );
-app.use("/memberDetailsRoutesForTrainers", memberDetailsRoutesForTrainers);
+app.use("/memberDetailsForTrainers", memberDetailsRoutesForTrainers);
 app.use("/dashboard", dashboardRoutes );
 
 app.use("/landingPage", landingPageRoute);
