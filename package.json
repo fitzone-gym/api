@@ -3,7 +3,6 @@
   "version": "1.0.0",
   "description": "",
   "main": "dist/src/server.js",
-  "type": "module",
   "scripts": {
     "nodemon": "nodemon",
     "start:dev": "ts-node src/server.ts",
