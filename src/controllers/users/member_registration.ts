@@ -8,14 +8,16 @@ import mysql, {
 import { generateResponse } from "../../utils";
 import { Connection } from "mysql2/typings/mysql/lib/Connection";
 
+import dbConfig from "../../db";
+
 const pool = mysql.createPool({
-    host: "localhost",
-    user: "root",
-    password: "",
-    database: "fit_zone",
-    waitForConnections: true,
-    connectionLimit:10,
-    queueLimit:0,
+  host: dbConfig.host,
+  user: dbConfig.user,
+  password: dbConfig.password,
+  database: dbConfig.database,
+  waitForConnections: true,
+  connectionLimit: 10,
+  queueLimit: 0,
 });
 
 

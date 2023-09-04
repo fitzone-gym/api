@@ -6,11 +6,13 @@ import mysql, {
 } from "mysql2/promise"; // Import the mysql2/promise library
 import { generateResponse } from "../../utils";
 
+import dbConfig from "../../db";
+
 const pool = mysql.createPool({
-  host: "localhost",
-  user: "root",
-  password: "",
-  database: "fit_zone",
+  host: dbConfig.host,
+  user: dbConfig.user,
+  password: dbConfig.password,
+  database: dbConfig.database,
   waitForConnections: true,
   connectionLimit: 10,
   queueLimit: 0,
