@@ -6,7 +6,7 @@ import mysql, {
 } from "mysql2/promise"; // Import the mysql2/promise library
 import { generateResponse } from "../utils";
 
-import dbConfig from "../../db";
+import dbConfig from "../db";
 
 const pool = mysql.createPool({
   host: dbConfig.host,
