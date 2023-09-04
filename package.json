@@ -4,11 +4,13 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon",
-    "start": "ts-node src/server.ts",
+    "nodemon": "nodemon",
+    "start:dev": "ts-node src/server.ts",
     "start:prod": "npm run build && node ./dist/src/server.ts",
-    "build": "npx tsc"
+    "build:prod": "npx tsc",
+    "dev": "tsc && node dist/src/server.js",
+    "start": "node dist/src/server.js",
+    "postinstall": "tsc"
   },
   "repository": {
     "type": "git",
@@ -37,6 +39,7 @@
     "@types/node": "^20.3.1",
     "@types/uuid": "^9.0.2",
     "bcrypt": "^5.1.0",
+    "dotenv": "^16.3.1",
     "mysql2": "^3.5.2",
     "mysql2-promise": "^0.1.4",
     "nodemon": "^3.0.1",
