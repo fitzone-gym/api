@@ -19,7 +19,6 @@ import doctorRoutes from './routes/doctor'
 import receptionistDetailsRoutes from './routes/receptionistDetails'
 
 const app = express();
-
 app.use(cors());
 
 app.use(bodyParser.json());
@@ -29,9 +28,10 @@ app.get('/health', (req:Request, res:Response) => {
     res.send("Alive and well!")
 })
 
-app.use("/receptionist", receptionistRoutes);
+// app.use("/receptionist", receptionistRoutes);
 app.use("/memberDetails", membersRoutes);
-app.use("/trainerDetails", trainerRoutes)
+app.use("/trainerDetails", trainerRoutes);
+
 
 app.use('/', homeRoutes);
 

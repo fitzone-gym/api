@@ -20,7 +20,7 @@ export const getMemberDetails = async (req: Request, res: Response) => {
 try {
     const connection = await pool.getConnection(); 
 
-    const query = "SELECT id, first_name, last_name from users WHERE user_role = 1";
+    const query = "SELECT * FROM users AS u INNER JOIN members AS m ON u.user_id = m.user_id WHERE u.role_id = 1";
 
     // execute the query and store the result in 'result'
     const [result] = await connection.query<RowDataPacket[]>(query);   // store the data into the object

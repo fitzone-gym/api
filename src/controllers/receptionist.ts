@@ -62,53 +62,52 @@ export const getMemberCount = (req: Request, res: Response) => {
 
 
 
-export const getTrainerDetails = (req: Request, res: Response) => {
-    console.log("a");
-      try {
-        pool.getConnection((err, connection) => {
-          if (err) {
-            console.error("Error connecting to the database:", err);
-            console.log("b");
-            return res
-              .status(500)
-              .json(
-                generateResponse(false, null, "Database connection error")
-              );
-         
-          }
-    
-          const query = "SELECT * FROM trainers";
-    
-          // Execute the query
-          connection.query(query, (err, result) => {
-            // Release the connection back to the pool
-            connection.release();
-    
-            if (err) {
-              console.error("Error fetching trainers:", err);
-              return res
-                .status(500)
-                .json(
-                  generateResponse(false, null, "Error fetching users")
-                );
-            }
-    
-            // if successfully process
-            res
-              .status(200)
-              .json(generateResponse(true, result));
-          });
-        });
-      } catch (err) {
-        console.error("Error in getrainerDetails:", err);
-        res
+export const getAllTrainers = (req: Request, res: Response) => {
+  try {
+    pool.getConnection((err, connection) => {
+      if (err) {
+        console.error("Error connecting to the database:", err);
+        return res
           .status(500)
           .json(
-            generateResponse(false, null, "Error fetching trainers")
+            generateResponse(false, null, "Database connection error")
           );
       }
-    };
-    
+
+      const query = `SELECT * FROM users WHERE role_id = 2  `;
+
+      // Execute the query
+      connection.query(query, (err, result) => {
+        // Release the connection back to the pool
+        connection.release();
+
+        if (err) {
+          console.error("Error fetching members:", err);
+          return res
+            .status(500)
+            .json(
+              generateResponse(false, null, "Error fetching users")
+            );
+        }
+
+        // if successfully process
+        // console.log("Hello")
+        res
+          .status(200)
+          .json(generateResponse(true, result));
+      });
+    });
+  } catch (err) {
+    console.error("Error in getmembersDetails:", err);
+    res
+      .status(500)
+      .json(
+        generateResponse(false, null, "Error fetching members")
+      );
+  }
+};
+
+
 
 // Get Members Details
     export const getMembersDetails = (req: Request, res: Response) => {
