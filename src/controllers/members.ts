@@ -30,7 +30,9 @@ export const getAllMembers = (req: Request, res: Response) => {
        `SELECT u.first_name, 
                u.last_name, 
                u.email,
+               u.joined_date,
                u.phone_no,
+               u.address,
                m.package
        FROM users AS u
        INNER JOIN members AS m ON u.user_id = m.user_id
@@ -85,7 +87,9 @@ export const searchMembers = (req: Request, res: Response) => {
         `SELECT u.first_name, 
                 u.last_name, 
                 u.email,
+                u.joined_date,
                 u.phone_no,
+                u.address,
                 m.package
         FROM users AS u
         INNER JOIN members AS m ON u.user_id = m.user_id
