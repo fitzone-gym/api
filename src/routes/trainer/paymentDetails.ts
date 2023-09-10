@@ -4,6 +4,7 @@ import { getPaymentDetails, getTotalPamentByMonth } from "../../controllers/trai
 const router = express.Router();
 
 router.get('/totalPayments',getTotalPamentByMonth)
-router.get("/paymentDetails",getPaymentDetails)
+router.get("/paymentDetails/:month/:staff_id",getPaymentDetails)
+
 
 export default router

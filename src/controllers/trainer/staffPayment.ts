@@ -40,9 +40,14 @@ export const getTotalPamentByMonth = async(req:Request, res:Response)=>{
 export const getPaymentDetails = async(req: Request,res: Response)=>{
     try{
         const connection = await pool.getConnection();
-        const query = "SELECT payment_id ,member_id, payment_month,payment_made_date from staff_payment where staff_id = 20001"; // In here we need to pass the session Id relatd to the staff member
+        const month:String = req.params.month;
+        const staff_id:String = req.params.staff_id;
+        console.log(month);
+        console.log(staff_id);
+        const query = "SELECT payment_id ,member_id, payment_month,payment_made_date from staff_payment where payment_month = ? AND staff_id = ?"; // In here we need to pass the session Id relatd to the staff member
         console.log(query);
-        const [result] = await connection.query<RowDataPacket[]>(query);
+        const [result] = await connection.query<RowDataPacket[]>(query , [req.params.month , req.params.staff_id]);
+        console.log(result[0])
         connection.release();
         res.status(200).json(generateResponse(true,result));
         

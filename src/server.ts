@@ -71,11 +71,11 @@ app.use('/receptionistDetails', receptionistDetailsRoutes);
 app.use('/leaves', leavesRoutes)
 
 
-app.use("/payment" ,paymentDetailsRoutes);
 app.use("/memberDetails", memberDetailsRoutes );
 
-app.use("/memberDetailsForTrainers", memberDetailsRoutesForTrainers);
 app.use("/dashboard", dashboardRoutes );
+app.use("/memberDetailsForTrainers", memberDetailsRoutesForTrainers);
+app.use("/payment" ,paymentDetailsRoutes);
 
 app.use("/landingPage", landingPageRoute);
 app.use("/contactUsSubmition", contactUs);
