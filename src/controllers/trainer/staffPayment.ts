@@ -44,7 +44,7 @@ export const getPaymentDetails = async(req: Request,res: Response)=>{
         const staff_id:String = req.params.staff_id;
         console.log(month);
         console.log(staff_id);
-        const query = "SELECT payment_id ,member_id, payment_month,payment_made_date from staff_payment where payment_month = ? AND staff_id = ?"; // In here we need to pass the session Id relatd to the staff member
+        const query = "SELECT s.payment_id , s.member_id, s.payment_month, DATE_FORMAT(s.payment_made_date, '%Y-%m-%d') AS payment_date ,TIME(s.payment_made_date) AS payment_time, u.first_name, u.last_name, u.nic, u.phone_no , u.email from staff_payment s inner join users u ON s.member_id = u.id where s.payment_month = ? AND s.staff_id = ? "; // In here we need to pass the session Id relatd to the staff member
         console.log(query);
         const [result] = await connection.query<RowDataPacket[]>(query , [req.params.month , req.params.staff_id]);
         console.log(result[0])
