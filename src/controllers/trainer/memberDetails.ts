@@ -22,7 +22,8 @@ export const getMemberDetails = async (req: Request, res: Response) => {
 try {
     const connection = await pool.getConnection(); 
 
-    const query = "SELECT id, first_name, last_name, profile_picture from users WHERE user_role = 1";
+    // need to set the session Id 
+    const query = "SELECT u.id, u.first_name, u.last_name, u.profile_picture FROM users u INNER JOIN members m ON u.id = m.member_id WHERE u.user_role = 1 AND m.trainer_id = '20001'";
 
     // execute the query and store the result in 'result'
     const [result] = await connection.query<RowDataPacket[]>(query);   // store the data into the object
@@ -39,7 +40,7 @@ try {
 }
 }
 
-export const getTrainerDetailsById = async (req:Request, res:Response) => {
+export const getMemberDetailsById = async (req:Request, res:Response) => {
     try {
         const connection = await pool.getConnection(); 
     
