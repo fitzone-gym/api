@@ -6,6 +6,7 @@ import {getWorkoutSchedule,createWorkoutSchedule, getExerciseList} from "../../c
 const router = express.Router()
 
 router.get("/", getMemberDetails);
+
 router.get("/exercise", getExerciseList);
 router.post("/schedule", createWorkoutSchedule);
 router.get("/schedule/:id", getWorkoutSchedule);

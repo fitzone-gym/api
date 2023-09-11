@@ -2,6 +2,7 @@ import express from 'express';
 import { Request, Response } from 'express';
 import bodyParser from 'body-parser';
 import cors from "cors"; 
+import {config} from '../config';
 
 import homeRoutes from './routes/home';
 
@@ -73,6 +74,8 @@ app.use("/contactUsSubmition", contactUs);
 app.use("/ourTrainers", trainerDetailsRoutes);
 app.use("/workoutSchedule", workoutScheduleRoutes)
 
-app.listen(5400, '0.0.0.0', () =>{
-    console.log('server is running on port 5400.');
+const port = config.server.port
+
+app.listen(port, () =>{
+    console.log(`server is running on port ${port}.`);
 }) 
