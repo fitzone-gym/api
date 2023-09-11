@@ -17,6 +17,8 @@ const pool = mysql.createPool({
   queueLimit: 0,
 });
 
+// const { format } = require("date-fns");
+
 export const getAllTrainers = (req: Request, res: Response) => {
     try {
       pool.getConnection((err, connection) => {
@@ -35,6 +37,8 @@ export const getAllTrainers = (req: Request, res: Response) => {
                  u.nic,
                  t.working_experience, 
                  u.email, 
+                 u.joined_date,
+                 t.qualification, 
                  u.phone_no, 
                  t.trainer_id
                FROM users AS u
@@ -58,8 +62,6 @@ export const getAllTrainers = (req: Request, res: Response) => {
               );
           }
   
-          // if successfully process
-          // console.log("Hello")
           res
             .status(200)
             .json(generateResponse(true, result));
@@ -215,7 +217,9 @@ export const searchTrainers = (req: Request, res: Response) => {
       SELECT u.first_name, 
              u.last_name, 
              t.working_experience, 
-             u.email, 
+             u.email,
+             u.joined_date,
+             t.qualification, 
              u.phone_no, 
              t.trainer_id
       FROM users AS u

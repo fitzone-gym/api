@@ -30,7 +30,8 @@ export const getAllDoctors = (req: Request, res: Response) => {
          `SELECT first_name, 
                  last_name, 
                  address, 
-                 email, 
+                 email,
+                 joined_date, 
                  phone_no
                FROM users
               WHERE role_id = 4;`;
@@ -66,3 +67,58 @@ export const getAllDoctors = (req: Request, res: Response) => {
         );
     }
   };
+
+export const deleteDoctor = (req: Request, res: Response) => {
+// console.log("JJ")
+try {
+  // console.log("test")
+  const trainerId = req.params.trainer_id; 
+  // Assuming the trainer ID is passed as a parameter in the request URL
+  // console.log("frm controller", trainerId);
+  pool.getConnection((err, connection) => {
+    if (err) {
+      console.error("Error connecting to the database:", err);
+      return res
+        .status(500)
+        .json(
+          generateResponse(false, null, "Database connection error")
+        );
+    }
+    // console.log("Query up")
+    const deleteQuery = `
+    DELETE t, u
+    FROM trainers AS t
+    INNER JOIN users AS u ON t.user_id = u.user_id
+    WHERE t.trainer_id = ?;               
+  `;
+
+    // Execute the delete query with the provided trainerId
+    connection.query(deleteQuery, [trainerId], (err, result) => {
+      connection.release(); // Release the connection back to the pool
+
+      if (err) {
+        console.error("Error deleting trainer:", err);
+        return res
+          .status(500)
+          .json(
+            generateResponse(false, null, "Error deleting trainer")
+          );
+      }
+
+   // Check if at least one row was affected (trainer deleted successfully)
+if (result) {
+res.status(200).json(generateResponse(true, "Trainer deleted successfully"));
+} else {
+res.status(404).json(generateResponse(false, null, "Trainer not found"));
+}
+    });
+  });
+} catch (err) {
+  console.error("Error in deleteTrainer:", err);
+  res
+    .status(500)
+    .json(
+      generateResponse(false, null, "Error deleting trainer")
+    );
+}
+};
