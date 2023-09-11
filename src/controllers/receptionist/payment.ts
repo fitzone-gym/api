@@ -16,11 +16,11 @@ connectionLimit: 10,
 queueLimit: 0,
 });
 
-export const getMemberDetails = async (req: Request, res: Response) => {
+export const getPaymentDetails = async (req: Request, res: Response) => {
 try {
     const connection = await pool.getConnection(); 
 
-    const query = "SELECT * FROM users INNER JOIN members ON users.user_id = members.user_id WHERE users.role_id = 1";
+    const query = "SELECT * FROM staff_payment WHERE user_id = 2";
 
     // execute the query and store the result in 'result'
     const [result] = await connection.query<RowDataPacket[]>(query);   // store the data into the object
@@ -29,12 +29,9 @@ try {
     res.status(200).json(generateResponse(true,result));
 
 } catch (err) {
-    console.error("Error in getMemberDetails", err);
+    console.error("Error in getting payment details", err);
     res
     .status(500)
-    .json(generateResponse(false, null, "Error fetching member details"));
+    .json(generateResponse(false, null, "Error fetching receptionist payment details"));
 }
 }
-
-
-

@@ -16,6 +16,7 @@ const pool = mysql.createPool({
 
 export const getAllTrainers = (req: Request, res: Response) => {
   try {
+    console.log("Hello")
     pool.getConnection((err, connection) => {
       if (err) {
         console.error("Error connecting to the database:", err);
@@ -26,7 +27,17 @@ export const getAllTrainers = (req: Request, res: Response) => {
           );
       }
 
-      const query = `SELECT * FROM users WHERE role_id = 2  `;
+      const query = `SELECT u.first_name, 
+      u.last_name, 
+      u.nic,
+      t.working_experience, 
+      u.email, 
+      u.phone_no, 
+      t.trainer_id
+      FROM users as u
+      INNER JOIN 
+      trainers as t ON u.user_id = t.user_id 
+      WHERE users.role_id = 2;  `;
 
       // Execute the query
       connection.query(query, (err, result) => {

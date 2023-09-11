@@ -21,6 +21,7 @@ import receptionistDetailsRoutes from "./routes/manager/receptionistDetails";
 import memberDetailsRoutesForTrainers from "./routes/trainer/memberDetails";
 import dashboardRoutes from "./routes/trainer/trainerDashboard";
 import receptionistRoutes from "./routes/receptionist/receptionist";
+import trainerDetailRoutes from './routes/receptionist/trainersdetails'
 
 
 
@@ -49,6 +50,10 @@ app.get('/health', (req:Request, res:Response) => {
 // app.use("/receptionist", receptionistRoutes);
 app.use("/memberDetails", membersRoutes);
 app.use("/trainerDetails", trainerRoutes);
+
+//receptionist
+app.use("/trainersdetails", trainerDetailsRoutes);
+app.use("/receptionist", receptionistRoutes)
 
 
 app.use('/', homeRoutes);
