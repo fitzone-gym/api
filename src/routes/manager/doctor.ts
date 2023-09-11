@@ -1,5 +1,5 @@
 import express from "express"
-import { getAllDoctors } from "../../controllers/manager/doctor";
+import { getAllDoctors , deleteDoctor} from "../../controllers/manager/doctor";
 
 
 
