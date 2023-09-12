@@ -28,14 +28,15 @@ export const MemberRegistration = async(req: Request, res: Response) => {
         
         const hashPassword = await bcrypt.hash(password, 10);
 
-        const query = "INSERT INTO users(first_name, last_name, email, phone_no, password) VALUES(?,?,?,?,?)"
+        const query = "INSERT INTO users(first_name, last_name, email, phone_no, password, user_role) VALUES(?,?,?,?,?,?)"
 
         const [result]: [OkPacket, FieldPacket[]] = await connection.query(query, [
             first_name,
             last_name,
             email,
             mobile_no,
-            hashPassword
+            hashPassword,
+            1,
         ]);
 
         connection.release(); // release the connection back to the pool
