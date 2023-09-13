@@ -28,6 +28,8 @@ interface ResultType{
     special_announcements: number;
 }
 
+
+
 export const getMemberDietDetails = async(req: Request, res: Response)=>{
     try{
 

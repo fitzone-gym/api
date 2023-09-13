@@ -22,6 +22,7 @@ import receptionistDetailsRoutes from "./routes/manager/receptionistDetails";
 import memberDetailsRoutesForTrainers from "./routes/trainer/memberDetails";
 import dashboardRoutes from "./routes/trainer/trainerDashboard";
 import receptionistRoutes from "./routes/receptionist/receptionist";
+import memberDashboardRoutes from "./routes/member/dashboard";
 
 
 
@@ -73,6 +74,10 @@ app.use("/contactUsSubmition", contactUs);
 
 app.use("/ourTrainers", trainerDetailsRoutes);
 app.use("/workoutSchedule", workoutScheduleRoutes)
+
+
+//kithsandu
+app.use("/memberDashboard", memberDashboardRoutes);
 
 const port = config.server.port
 
