@@ -51,8 +51,7 @@ export const getTrainerDetailsbyID = async(req: Request, res: Response) => {
 
         const connection = await pool.getConnection();
 
-        const query = "SELECT users.id,users.first_name,users.last_name,users.profile_picture, users.email, users.phone_no, users.dob, users.gender, trainers.working_experience, trainers.qualification FROM users INNER JOIN trainers ON trainers.user_id = users.id WHERE trainers.user_id = ? "
-
+        const query = "SELECT users.id,users.first_name,users.last_name,users.profile_picture, users.email, users.phone_no, users.dob, users.gender, trainers.working_experience, trainers.qualification, reviews.review FROM users INNER JOIN trainers ON trainers.user_id = users.id LEFT JOIN reviews ON reviews.trainer_id = users.id WHERE trainers.user_id = ?; "
         const [result] = await connection.query<RowDataPacket[]>(query, [user_id]);
 
         const trainerData = result[0];
@@ -67,6 +66,10 @@ export const getTrainerDetailsbyID = async(req: Request, res: Response) => {
             ...trainerData,
             age
         }))
+
+        // res.status(200).json(generateResponse(true,{
+        //     result
+        //     }))
     }
     catch(err){
         console.error("Error in get Trainer details:",err);
