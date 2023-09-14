@@ -28,7 +28,7 @@ export const getworkoutShedule =async(req:Request, res:Response) => {
     try{
         const connection = await pool.getConnection();
 
-        const query = "SELECT exercise_name, sets, reps,exercise_id FROM workout_schedule WHERE member_id =10001"
+        const query ="SELECT exercise.exercise_id , exercise.name, workout_schedule.sets, workout_schedule.reps  FROM exercise inner join  workout_schedule on exercise.exercise_id = workout_schedule.exercise_id where workout_schedule.member_id = 10001"
 
         const [result] = await connection.query<RowDataPacket[]>(query);
 
