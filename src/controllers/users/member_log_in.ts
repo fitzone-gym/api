@@ -27,7 +27,6 @@ export const MemberLogin = async (req: Request,  res: Response) => {
 
         const connection = await pool.getConnection()
         const {email, password} = req.body
-        console.log(email);
         
         const query = "SELECT * FROM users WHERE email = ? "
 
@@ -35,9 +34,11 @@ export const MemberLogin = async (req: Request,  res: Response) => {
 
         if(await bcrypt.compare(password, result[0].password)){
             res.json(generateResponse(true,  result[0]))
-            
+            console.log('password match');            
         }else {
             res.json(generateResponse(false, null, "login failed"))
+            console.log('password mismatch');
+            
             
         }
     }catch(err) {

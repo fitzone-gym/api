@@ -36,11 +36,17 @@ export const getMemberDietDetails = async(req: Request, res: Response)=>{
         const member_id = req.params.id
         const connection = await pool.getConnection();
 
+        console.log(member_id);
+        
+
         const query = "SELECT calories_per_day,steps_per_day from diet_plan where member_id = ?";
         
         const [result] = await connection.query<RowDataPacket[]>(query, [member_id]);
 
         const memberDietData = result[0];
+
+        console.log(result);
+        
 
         connection.release();
 
