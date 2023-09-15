@@ -64,10 +64,30 @@ const pool = mysql.createPool({
         }
     }
 
+    export const deleteExersice = async (req: Request, res: Response) => {
+        console.log("entered into delete")
+
+        try{
+            const connection =  await pool.getConnection();
+            const exercise_Id = req.params.exercise_Id;  // need to pass exerciseId as a parameter
+
+            //Execute the delete SQL statement to remove the exercise
+            const query = "DELETE FROM workout_schedule WHERE exercise_id = ?";
+            const [result] = await connection.query<RowDataPacket[]>(query,[exercise_Id])
+            console.log(result);
+            
+            connection.release();
+            res.status(201).json(generateResponse(true, "successfuly created"))
+        }catch(err){
+
+        }
+
+    }
+
     export const getExerciseList = async(req:Request , res: Response) =>{
         try{
             const connection = await pool.getConnection(); 
-            const query  = "SELECT exercise_id ,  name from exercise"
+            const query  = "SELECT exercise_id ,  name from exercise where "
             const [result] = await connection.query<RowDataPacket[]>(query); 
             console.log(result);
             
