@@ -39,7 +39,7 @@ export const getMemberDietDetails = async(req: Request, res: Response)=>{
         console.log(member_id);
         
 
-        const query = "SELECT calories_per_day,steps_per_day from diet_plan where member_id = ?";
+        const query = "SELECT calories_per_day,steps_per_day,water_per_day from diet_plan where member_id = ?";
         
         const [result] = await connection.query<RowDataPacket[]>(query, [member_id]);
 
