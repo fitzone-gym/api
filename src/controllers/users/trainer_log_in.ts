@@ -31,7 +31,7 @@ try {
     // console.log(hashPassword);
     // console.log(password)
     
-    const query = "SELECT * FROM users WHERE email = ? AND user_role = 2"
+    const query = "SELECT * FROM users WHERE email = ? AND role_id = 2"
 
     const [result]: any = await connection.query(query, [email])
     console.log(result)

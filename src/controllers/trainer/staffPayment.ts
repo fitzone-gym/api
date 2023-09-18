@@ -19,12 +19,14 @@ const pool = mysql.createPool({
 });
 
 export const getTotalPamentByMonth = async(req:Request, res:Response)=>{
+    // console.log(req.params.user_id)
     try{
         const connection = await pool.getConnection();
         // chage the below query by setting the session id
-        const query = "SELECT staff_id, payment_month, SUM(amount) AS total_payment FROM staff_payment where staff_id = '20001' GROUP BY payment_month, staff_id ORDER BY CASE WHEN payment_month = 'January' THEN 1 WHEN payment_month = 'February' THEN 2 WHEN payment_month = 'March' THEN 3 WHEN payment_month = 'April' THEN 4 WHEN payment_month = 'May' THEN 5 WHEN payment_month = 'June' THEN 6 WHEN payment_month = 'July' THEN 7 WHEN payment_month = 'August' THEN 8 WHEN payment_month = 'September' THEN 9 WHEN payment_month = 'October' THEN 10 WHEN payment_month = 'November' THEN 11 WHEN payment_month = 'December' THEN 12 END";
-        console.log(query);
-        const[result] = await connection.query<RowDataPacket[]>(query);
+        const query = "SELECT  DATE_FORMAT(payment_made_date, '%M') AS payment_month, SUM(amount) AS total_payment, payment_details FROM  member_payment  WHERE  trainer_id = ?  GROUP BY payment_month,  payment_details,  trainer_id  ORDER BY  MONTH(payment_month)";
+        // const query = "SELECT  DATE_FORMAT(payment_made_date_time, '%M') AS payment_month, SUM(amount) AS total_payment, payment_details FROM  member_payment  WHERE  trainer_id = ?  GROUP BY DATE_FORMAT(payment_made_date_time, '%Y-%m'),   payment_details,   trainer_id ORDER BY  DATE_FORMAT(payment_made_date_time, '%Y-%m');";
+        // console.log(query);
+        const[result] = await connection.query<RowDataPacket[]>(query, [req.params.user_id]);
         connection.release();
         res.status(200).json(generateResponse(true,result));
     }catch(err){
@@ -41,16 +43,14 @@ export const getPaymentDetails = async(req: Request,res: Response)=>{
     try{
         const connection = await pool.getConnection();
         const month:String = req.params.month;
-        const staff_id:String = req.params.staff_id;
+        const staff_id:String = req.params.user_id; // this user_id name comes from the route path
         console.log(month);
         console.log(staff_id);
-        const query = "SELECT s.payment_id ,s.amount, s.member_id, s.payment_month, DATE_FORMAT(s.payment_made_date, '%Y-%m-%d') AS payment_date ,TIME(s.payment_made_date) AS payment_time, u.first_name, u.last_name, u.nic, u.phone_no , u.email from staff_payment s inner join users u ON s.member_id = u.id where s.payment_month = ? AND s.staff_id = ? "; // In here we need to pass the session Id relatd to the staff member
-        console.log(query);
-        const [result] = await connection.query<RowDataPacket[]>(query , [req.params.month , req.params.staff_id]);
-        console.log(result[0])
+        const query = "SELECT m.payment_id ,m.amount, m.member_id,DATE_FORMAT(m.payment_made_date, '%Y-%m-%d') AS payment_date ,TIME(m.payment_made_date) AS payment_time, m.payment_details ,u.first_name, u.last_name, u.nic, u.phone_no , u.email from member_payment m inner join users u ON m.member_id = u.user_id where DATE_FORMAT(m.payment_made_date,'%M') = ? AND m.trainer_id = ? ";
+        const [result] = await connection.query<RowDataPacket[]>(query , [month , staff_id]);
+        console.log(result);
         connection.release();
-        res.status(200).json(generateResponse(true,result));
-        
+        res.status(200).json(generateResponse(true,result));        
     }catch (err) {
         console.error("Error in getMemberCount:", err);
     res
@@ -60,3 +60,5 @@ export const getPaymentDetails = async(req: Request,res: Response)=>{
         );
     }
 }
+
+// I add the payment_made_date_time as a new column to the table member_payment table. because i want to track the time as well. 

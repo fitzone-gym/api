@@ -5,11 +5,11 @@ import {getWorkoutSchedule,createWorkoutSchedule, getExerciseList, deleteExersic
 
 const router = express.Router()
 
-router.get("/", getMemberDetails);
-router.get("/exercise", getExerciseList);
+router.get("/:user_id", getMemberDetails); // this user_id is trainer_id 
+router.get("/memberDetails/:user_id", getMemberDetailsById)  // this user_id is member_id
+router.get("/schedule/:user_id", getWorkoutSchedule);
 router.post("/schedule", createWorkoutSchedule);
-router.get("/schedule/:id", getWorkoutSchedule);
 router.get("/deleteSchedule/:exercise_id",deleteExersice);
-router.get("/:id", getMemberDetailsById)
+router.get("/exercise", getExerciseList);
 
 export default router
