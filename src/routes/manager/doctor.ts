@@ -1,11 +1,12 @@
 import express from "express"
-import { getAllDoctors , deleteDoctor} from "../../controllers/manager/doctor";
+import { addDoctor, deleteDoctor, getAllDoctors } from "../../controllers/manager/doctor";
 
 
 
 const router = express.Router()
 
 router.get("/", getAllDoctors);
-router.delete("/:_id", deleteDoctor);
+router.post("/add", addDoctor);
+router.delete("/:doctor_id", deleteDoctor);
 
 export default router
