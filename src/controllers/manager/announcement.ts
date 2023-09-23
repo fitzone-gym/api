@@ -72,7 +72,7 @@ const pool = mysql.createPool({
     const updatedData = req.body;
 
     console.log("update");
-    const recepientsArray = updatedData.recepients.includes(',') ? updatedData.recepients.split(',').map((item: string) => item.trim()) : [updatedData.for];
+    const recepientsArray = updatedData.recepients.includes(',') ? updatedData.recepients.split(',').map((item: string) => item.trim()) : [updatedData.receiver];
     console.log(recepientsArray);
   
     console.log(announcementId);
@@ -87,7 +87,7 @@ const pool = mysql.createPool({
         }
   
         const query = `UPDATE announcement
-        SET \`for\` = ?, description = ?, title = ?
+        SET \`receiver\` = ?, description = ?, title = ?
         WHERE announcement_id = ?`;
         
         connection.query(

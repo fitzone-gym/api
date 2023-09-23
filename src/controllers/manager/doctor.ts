@@ -27,18 +27,16 @@ export const getAllDoctors = (req: Request, res: Response) => {
             );
         }
   
-        const query =
-         `SELECT u.first_name, 
-                 u.last_name, 
-                 u.address, 
-                 u.email,
-                 u.joined_date, 
-                 u.phone_no,
-                 d.qualification,
-                 d.doctor_id
-                 FROM users AS u
-                 INNER JOIN doctors AS d ON u.user_id = d.user_id
-                 WHERE u.role_id = 4;`;
+        const query = `SELECT u.first_name,
+        u.last_name,
+        u.address,
+        u.email,
+        u.joined_date,
+        u.phone_no,
+       d.qualification
+ FROM users AS u
+ INNER JOIN doctors AS d ON u.user_id = d.doctor_id
+ WHERE u.role_id = 3;`;
   
         // Execute the query
         connection.query(query, (err, result) => {
@@ -92,7 +90,7 @@ try {
     const deleteQuery = `
     DELETE d, u
     FROM doctors AS d
-    INNER JOIN users AS u ON d.user_id = u.user_id
+    INNER JOIN users AS u ON d.doctor_id = u.user_id
     WHERE d.doctor_id = ?;               
   `;
 
@@ -170,7 +168,7 @@ export const addDoctor = (req: Request, res: Response) => {
       console.log( "email eka enawa")
       console.log("User ID retrieved:", userResult[0]?.user_id); // Print the retrieved user ID
       const user_id = userResult[0]?.user_id;
-      if(role_id == 4){
+      if(role_id == 3){
 
         const qualificationQuery = `
         INSERT INTO doctors (user_id,qualification)

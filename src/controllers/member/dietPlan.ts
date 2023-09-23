@@ -22,10 +22,10 @@ const pool = mysql.createPool({
     memberCount: number;
   }
 
-export const getdietPlan = async(req: Request, res: Response) => {
-    try{
-        const connection = await pool.getConnection();
+// export const getdietPlan = async(req: Request, res: Response) => {
+//     try{
+//         const connection = await pool.getConnection();
 
-        const query = "SELECT "
-    }
-}
+//         const query = "SELECT ";
+//     }
+//   }
