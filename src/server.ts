@@ -24,6 +24,11 @@ import dashboardRoutes from "./routes/trainer/trainerDashboard";
 import receptionistRoutes from "./routes/receptionist/receptionist";
 
 
+/*doctor */
+import membersfordoctorRoutes from "./routes/doctor/members";
+import memberdoctorappointmentRoutes from "./routes/doctor/appointments";
+import doctorpaymentRoutes from "./routes/doctor/payments";
+import doctorleaverequestsRouts from "./routes/doctor/leaverequests";
 
 // import dashboardRoutes from "./routes/trainerDashboard";
 
@@ -73,6 +78,11 @@ app.use("/contactUsSubmition", contactUs);
 
 app.use("/ourTrainers", trainerDetailsRoutes);
 app.use("/workoutSchedule", workoutScheduleRoutes)
+
+app.use("/membersfordoctor", membersfordoctorRoutes);
+app.use("/memberdoctorappointment", memberdoctorappointmentRoutes);
+app.use("/doctorpayments", doctorpaymentRoutes);
+app.use("/doctorleaverequests", doctorleaverequestsRouts);
 
 const port = config.server.port
 
