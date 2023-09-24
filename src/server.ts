@@ -23,6 +23,7 @@ import memberDetailsRoutesForTrainers from "./routes/trainer/memberDetails";
 import dashboardRoutes from "./routes/trainer/trainerDashboard";
 import receptionistRoutes from "./routes/receptionist/receptionist";
 import trainerDetailRoutes from './routes/receptionist/trainersdetails'
+import feedbackRoutes from './routes/manager/feedback'
 
 
 
@@ -55,6 +56,8 @@ app.use("/trainerDetails", trainerRoutes);
 //receptionist
 app.use("/trainersdetails", trainerDetailsRoutes);
 app.use("/receptionist", receptionistRoutes)
+
+app.use("/feedbacks", feedbackRoutes)
 
 
 app.use('/', homeRoutes);
