@@ -135,15 +135,15 @@ export const addDoctor = (req: Request, res: Response) => {
       }
 
          // Assuming the required trainer data is passed in the request body
-    const { first_name, last_name, email, phone_no, role_id, username, password, qualification} = req.body;
+    const { first_name, last_name, email, phone_no, role_id, nic, password, qualification} = req.body;
 
     const insertQuery = `
-      INSERT INTO users (first_name, last_name, phone_no, email, role_id, username, password)
+      INSERT INTO users (first_name, last_name, phone_no, email, role_id, nic, password)
       VALUES (?, ?, ?, ?, ?, ?, ?)
     `;
 
     // Execute the insert query with the provided data
-    connection.query(insertQuery, [first_name, last_name, phone_no, email, role_id, username, password], (err, result) => {
+    connection.query(insertQuery, [first_name, last_name, phone_no, email, role_id, nic, password], (err, result) => {
       
       if (err) {
         connection.release(); // Release the connection back to the pool

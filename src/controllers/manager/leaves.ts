@@ -78,6 +78,27 @@ export const leaveRequest = (req: Request, res: Response) => {
     }
   };
 
+  export const updateLeaveRequestStatus = (req: Request, res: Response) => {
+    const leaves_request_id = req.params.id;
+    const newStatus = req.body.status;
+  
+    // Update the leave request status in your database
+    try {
+      const updateQuery = 'UPDATE leave_request SET status = ? WHERE leaves_request_id = ?';
+      pool.query(updateQuery, [newStatus, leaves_request_id], (error, results) => {
+        if (error) {
+          console.error('Error updating leave request status:', error);
+          return res.status(500).json(generateResponse(false, null, 'Error updating leave request status'));
+        }
+  
+        res.status(200).json(generateResponse(true, 'Leave request status updated successfully'));
+      });
+    } catch (error) {
+      console.error('Error updating leave request status:', error);
+      res.status(500).json(generateResponse(false, null, 'Error updating leave request status'));
+    }
+  };
+
 //   export const apprdecLeaveRequests = (req: Request, res: Response) => {
 //     console.log(req.query.status);
 //     try {
