@@ -21,16 +21,13 @@ const pool = mysql.createPool({
 
 interface ResultType{
 
-    calories_per_day: number;
-    steps_per_day: number;
-    water_per_day: number;
-    workout_days: number;
-    special_announcements: number;
+    weight: number;
+    height: number;
 }
 
 
 
-export const getMemberDietDetails = async(req: Request, res: Response)=>{
+export const getMemberDetails = async(req: Request, res: Response)=>{
     try{
 
         const member_id = req.params.id
@@ -42,7 +39,6 @@ export const getMemberDietDetails = async(req: Request, res: Response)=>{
 
         const memberDietData = result[0];
 
-        console.log(memberDietData)
         connection.release();
 
         res.status(200).json(generateResponse(true, {
@@ -50,7 +46,7 @@ export const getMemberDietDetails = async(req: Request, res: Response)=>{
         }))
     }
     catch(err){
-        //console.error("Error is get member deit paln details", err);
+        console.error("Error is get member deit paln details", err);
         res.status(500).json(generateResponse(false,null,"Error fetching user feedback details"));
     }
 }
