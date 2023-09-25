@@ -8,7 +8,7 @@ const router = express.Router()
 router.get("/", getAllTrainers);
 router.delete("/:trainer_id", deleteTrainer); 
 router.post("/add", addTrainer);
-router.get("/searchTrainers", searchTrainers)
-
+router.get("/searchTrainers", searchTrainers);
+// router.get("/payment", getTrainerPayment);
 
 export default router

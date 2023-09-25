@@ -281,15 +281,15 @@ export const getTrainerDetails = (req: Request, res: Response) => {
               }
         
                  // Assuming the required trainer data is passed in the request body
-            const { first_name, last_name, email, phone_no, role_id, username, password, address} = req.body;
+            const { first_name, last_name, email, phone_no, role_id, nic, password, address} = req.body;
       
             const insertQuery = `
-              INSERT INTO users (first_name, last_name, phone_no, email, role_id, username, password, address)
+              INSERT INTO users (first_name, last_name, phone_no, email, role_id, nic, password, address)
               VALUES (?, ?, ?, ?, ?, ?, ?, ?)
             `;
       
             // Execute the insert query with the provided data
-            connection.query(insertQuery, [first_name, last_name, phone_no, email, role_id, username, password, address], (err, result) => {
+            connection.query(insertQuery, [first_name, last_name, phone_no, email, role_id, nic, password, address], (err, result) => {
               
               if (err) {
                 connection.release(); // Release the connection back to the pool
@@ -310,3 +310,6 @@ export const getTrainerDetails = (req: Request, res: Response) => {
         }
       };
       
+      export const getReceptionistPayment = (req: Request, res: Response) => {
+
+      };

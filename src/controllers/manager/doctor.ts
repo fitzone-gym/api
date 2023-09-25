@@ -33,6 +33,7 @@ export const getAllDoctors = (req: Request, res: Response) => {
         u.email,
         u.joined_date,
         u.phone_no,
+        d.doctor_type,
        d.qualification
  FROM users AS u
  INNER JOIN doctors AS d ON u.user_id = d.doctor_id
@@ -196,4 +197,8 @@ export const addDoctor = (req: Request, res: Response) => {
     generateResponse(false, null, 'Error adding doctor')
   );
 }
+};
+
+export const getDoctorPayment = (req: Request, res: Response) => {
+
 };

@@ -89,15 +89,15 @@ export const getAllTrainers = (req: Request, res: Response) => {
         }
   
            // Assuming the required trainer data is passed in the request body
-      const { first_name, last_name, email, phone_no, role_id, username, password, working_experience} = req.body;
+      const { first_name, last_name, email, phone_no, role_id, nic, password, working_experience} = req.body;
 
       const insertQuery = `
-        INSERT INTO users (first_name, last_name, phone_no, email, role_id, username, password)
+        INSERT INTO users (first_name, last_name, phone_no, email, role_id, nic, password)
         VALUES (?, ?, ?, ?, ?, ?, ?)
       `;
 
       // Execute the insert query with the provided data
-      connection.query(insertQuery, [first_name, last_name, phone_no, email, role_id, username, password], (err, result) => {
+      connection.query(insertQuery, [first_name, last_name, phone_no, email, role_id, nic, password], (err, result) => {
         
         if (err) {
           connection.release(); // Release the connection back to the pool
@@ -227,12 +227,12 @@ export const searchTrainers = (req: Request, res: Response) => {
       FROM users AS u
       INNER JOIN trainers AS t ON u.user_id = t.user_id
       WHERE u.role_id = 2
-      AND (u.first_name LIKE ? OR u.last_name LIKE ? OR CONCAT(u.first_name, ' ', u.last_name) LIKE ?);`;
+      AND (u.first_name LIKE ? OR u.last_name LIKE ? OR CONCAT(u.first_name, ' ', u.last_name) LIKE ? OR u.joined_date );`;
 
     const searchTermWithWildcards = `%${searchTerm}%`; // Add wildcards for searching
 
     // Execute the query with the search term
-    pool.query(query, [searchTermWithWildcards, searchTermWithWildcards, searchTermWithWildcards], (err, result) => {
+    pool.query(query, [searchTermWithWildcards, searchTermWithWildcards, searchTermWithWildcards, searchTermWithWildcards], (err, result) => {
       if (err) {
         console.error("Error searching for trainers:", err);
         return res.status(500).json(generateResponse(false, null, "Error searching for trainers"));
@@ -246,3 +246,6 @@ export const searchTrainers = (req: Request, res: Response) => {
   }
 };
 
+export const getTrainerPayment = (req: Request, res: Response) => {
+ 
+};
