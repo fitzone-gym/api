@@ -96,12 +96,12 @@ export const searchMembers = (req: Request, res: Response) => {
         FROM users AS u
         INNER JOIN members AS m ON u.user_id = m.user_id
         WHERE u.role_id = 1
-        AND (u.first_name LIKE ? OR u.last_name LIKE ? OR m.package LIKE ?);`;
+        AND (u.first_name LIKE ? OR u.last_name LIKE ? OR m.package LIKE ? OR u.joined_date);`;
 
       const searchPattern = `%${searchTerm}%`; // Add wildcard for partial matching
       const datePattern = `${searchYear}-${searchMonth}-%`
       // Execute the query with search parameters
-      connection.query(query, [searchPattern, searchPattern, searchPattern], (err, result) => {
+      connection.query(query, [searchPattern, searchPattern, searchPattern, searchPattern], (err, result) => {
         // Release the connection back to the pool
         connection.release();
 
