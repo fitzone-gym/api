@@ -7,6 +7,7 @@ import dbConfig from "../../db";
 
 const pool = mysql.createPool({
   host: dbConfig.host,
+  // port: dbConfig.port,
   user: dbConfig.user,
   password: dbConfig.password,
   database: dbConfig.database,
@@ -14,7 +15,6 @@ const pool = mysql.createPool({
   connectionLimit: 10,
   queueLimit: 0,
 });
-
   export const getAllAnnouncement = (req: Request, res: Response) => {
     const announcementId = req.params.id; // Assuming you pass the announcement ID as a URL parameter
     console.log(announcementId)

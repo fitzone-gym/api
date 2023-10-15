@@ -7,6 +7,7 @@ import dbConfig from "../../db";
 
 const pool = mysql.createPool({
   host: dbConfig.host,
+  // port:dbConfig.port,
   user: dbConfig.user,
   password: dbConfig.password,
   database: dbConfig.database,
@@ -73,8 +74,7 @@ export const getAllMembers = (req: Request, res: Response) => {
 
 export const searchMembers = (req: Request, res: Response) => {
   try {
-    const { searchTerm } = req.query; // Assuming the search term is passed as a query parameter
-
+    const { searchTerm ,searchMonth ,searchYear } = req.query; // Assuming the search term is passed as a query parameter
     pool.getConnection((err, connection) => {
       if (err) {
         console.error("Error connecting to the database:", err);
@@ -99,7 +99,7 @@ export const searchMembers = (req: Request, res: Response) => {
         AND (u.first_name LIKE ? OR u.last_name LIKE ? OR m.package LIKE ?);`;
 
       const searchPattern = `%${searchTerm}%`; // Add wildcard for partial matching
-
+      const datePattern = `${searchYear}-${searchMonth}-%`
       // Execute the query with search parameters
       connection.query(query, [searchPattern, searchPattern, searchPattern], (err, result) => {
         // Release the connection back to the pool
@@ -130,6 +130,58 @@ export const searchMembers = (req: Request, res: Response) => {
   }
 };
 
+// export const getMemberPayment = (req: Request, res: Response) => {
+//   try {
+//     pool.getConnection((err, connection) => {
+//       if (err) {
+//         console.error("Error connecting to the database:", err);
+//         return res
+//           .status(500)
+//           .json(
+//             generateResponse(false, null, "Database connection error")
+//           );
+//       }
+
+//       const query =
+//        `SELECT u.first_name, 
+//                u.last_name, 
+//                u.email,
+//                m.payment_made_date,
+//                m.package
+//        FROM users AS u
+//        INNER JOIN member_payment AS m ON u.user_id = m.user_id
+//        WHERE u.role_id = 1;`;
+
+//       // Execute the query
+//       connection.query(query, (err, result) => {
+//         // Release the connection back to the pool
+//         connection.release();
+
+//         if (err) {
+//           console.error("Error fetching members:", err);
+//           return res
+//             .status(500)
+//             .json(
+//               generateResponse(false, null, "Error fetching users")
+//             );
+//         }
+
+//         // if successfully process
+//         // console.log("Hello")
+//         res
+//           .status(200)
+//           .json(generateResponse(true, result));
+//       });
+//     });
+//   } catch (err) {
+//     console.error("Error in getmembersDetails:", err);
+//     res
+//       .status(500)
+//       .json(
+//         generateResponse(false, null, "Error fetching members")
+//       );
+//   }
+// };
 
 // export const getMemberCount = (req: Request, res: Response) => {
 //   try {
