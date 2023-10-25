@@ -1,6 +1,7 @@
 import express from 'express';
 import{
-    getMemberDetails
+    getMemberDetails,
+    
 }from"../../controllers/member/dietPlan";
 
 const router = express.Router();
