@@ -9,22 +9,23 @@ import { generateResponse } from "../../utils";
 import dbConfig from "../../db";
 
 const pool = mysql.createPool({
-  host: dbConfig.host,
-  user: dbConfig.user,
-  password: dbConfig.password,
-  database: dbConfig.database,
-  waitForConnections: true,
-  connectionLimit: 10,
-  queueLimit: 0,
+    host: dbConfig.host,
+    user: dbConfig.user,
+    password: dbConfig.password,
+    database: dbConfig.database,
+    waitForConnections: true,
+    connectionLimit: 10,
+    queueLimit: 0,
 });
     
     export const getWorkoutSchedule = async(req: Request, res: Response)=>{
         
+        console.log(req.params.user_id)
         try{
             const connection = await pool.getConnection(); 
             const query = "SELECT exercise.exercise_id , exercise.name, exercise.calories, workout_schedule.sets, workout_schedule.reps  FROM exercise inner join  workout_schedule on exercise.exercise_id = workout_schedule.exercise_id where workout_schedule.member_id = ?"
 
-            const [result] = await connection.query<RowDataPacket[]>(query, [req.params.id]); 
+            const [result] = await connection.query<RowDataPacket[]>(query, [req.params.user_id]); 
             console.log(result);
             
             connection.release();
@@ -50,8 +51,7 @@ const pool = mysql.createPool({
             const query = "INSERT INTO workout_schedule (member_id , exercise_id, reps, sets) values (?,?,?,?)"
 
             const [result] = await connection.query<RowDataPacket[]>(query,[member_id, exercise_id, reps,sets]); 
-            console.log(result);
-            
+            // console.log(result);            
             connection.release();
             res.status(201).json(generateResponse(true, "successfuly created"))
 
@@ -64,13 +64,31 @@ const pool = mysql.createPool({
         }
     }
 
-    export const getExerciseList = async(req:Request , res: Response) =>{
+    export const deleteExersice = async (req: Request, res: Response) => {
+        console.log("entered into delete")
+
+        try{
+            const connection =  await pool.getConnection();
+            const exercise_Id = req.params.exercise_Id;  // need to pass exerciseId as a parameter
+
+            //Execute the delete SQL statement to remove the exercise
+            const query = "DELETE FROM workout_schedule WHERE exercise_id = ?";
+            const [result] = await connection.query<RowDataPacket[]>(query,[exercise_Id])
+            // console.log(result);            
+            connection.release();
+            res.status(201).json(generateResponse(true, "successfuly created"))
+        }catch(err){
+
+        }
+
+    }
+
+    export const getExerciseList = async(req:Request , res: Response) =>{  // for the front end drop down list
         try{
             const connection = await pool.getConnection(); 
-            const query  = "SELECT exercise_id ,  name from exercise"
+            const query  = "SELECT exercise_id ,  name from exercise where "
             const [result] = await connection.query<RowDataPacket[]>(query); 
-            console.log(result);
-            
+            // console.log(result);            
             connection.release();
             res.status(200).json(generateResponse(true,result));
 

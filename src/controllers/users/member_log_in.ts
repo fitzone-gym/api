@@ -27,8 +27,11 @@ export const MemberLogin = async (req: Request,  res: Response) => {
 
         const connection = await pool.getConnection()
         const {email, password} = req.body
+        // const hashPassword = await bcrypt.hash(password, 10);
+        // console.log(hashPassword);
+        // console.log(password)
         
-        const query = "SELECT * FROM users WHERE email = ? "
+        const query = "SELECT * FROM users WHERE email = ?"
 
         const [result]: any = await connection.query(query, [email])
 

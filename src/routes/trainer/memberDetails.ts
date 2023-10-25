@@ -1,15 +1,15 @@
 import express from "express"
-import { getMemberDetails, getTrainerDetailsById } from "../../controllers/trainer/memberDetails";
+import { getMemberDetails, getMemberDetailsById } from "../../controllers/trainer/memberDetails";
 
-import {getWorkoutSchedule,createWorkoutSchedule, getExerciseList} from "../../controllers/trainer/workoutSchedule";
+import {getWorkoutSchedule,createWorkoutSchedule, getExerciseList, deleteExersice} from "../../controllers/trainer/workoutSchedule";
 
 const router = express.Router()
 
-router.get("/", getMemberDetails);
-
-router.get("/exercise", getExerciseList);
+router.get("/:user_id", getMemberDetails); // this user_id is trainer_id 
+router.get("/memberDetails/:user_id", getMemberDetailsById)  // this user_id is member_id
+router.get("/schedule/:user_id", getWorkoutSchedule);
 router.post("/schedule", createWorkoutSchedule);
-router.get("/schedule/:id", getWorkoutSchedule);
-router.get("/:id", getTrainerDetailsById)
+router.get("/deleteSchedule/:exercise_id",deleteExersice);
+router.get("/exercise", getExerciseList);
 
 export default router
