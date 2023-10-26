@@ -7,7 +7,8 @@ const router = express.Router()
 router.get("/", getAllMembers);
 router.get("/getMembersDetails", getAllMembers);
 // router.get("/getMemberProfile",  getMemberProfile )
-router.get("/searchMembers", searchMembers)
+router.get("/searchMembers", searchMembers);
+// router.get("/payment", getMemberPayment);
 
 export default router
 
