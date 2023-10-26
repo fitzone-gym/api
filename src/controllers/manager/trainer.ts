@@ -11,7 +11,7 @@ import dbConfig from "../../db";
 
 const pool = mysql.createPool({
   host: dbConfig.host,
-  port: dbConfig.port,
+  // port: dbConfig.port,
   user: dbConfig.user,
   password: dbConfig.password,
   database: dbConfig.database,
