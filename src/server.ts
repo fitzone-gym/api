@@ -1,11 +1,10 @@
-import express from 'express';
-import { Request, Response } from 'express';
-import bodyParser from 'body-parser';
-import cors from "cors"; 
-import {config} from '../config';
+import express from "express";
+import { Request, Response } from "express";
+import bodyParser from "body-parser";
+import cors from "cors";
+import { config } from "../config";
 
-import homeRoutes from './routes/home';
-
+import homeRoutes from "./routes/home";
 
 
 import AuthRoutes from "./routes/users/auth";
@@ -22,6 +21,8 @@ import membersRoutes from "./routes/manager/members";
 import trainerRoutes from "./routes/manager/trainer";
 import leavesRoutes from "./routes/manager/leaves";
 import doctorRoutes from "./routes/manager/doctor";
+import paymentRoutes from "./routes/manager/payment";
+import profileRoutes from "./routes/manager/profile";
 import receptionistDetailsRoutes from "./routes/manager/receptionistDetails";
 import announcementRoutes from "./routes/manager/announcement";
 
@@ -44,17 +45,14 @@ import paymentRoutes from "./routes/member/payments"
 // import contactUs from "./routes/contactUs";
 // import memberLoginWeb from "./routes/memberLoginWeb";
 
-
 // import receptionistRoutes from './routes/receptionist'
-
-
 
 const app = express();
 
 app.use(cors());
 
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended:true}));
+app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use('/', homeRoutes);
 app.get('/health', (req:Request, res:Response) => {
@@ -63,17 +61,19 @@ app.get('/health', (req:Request, res:Response) => {
 
 app.use("/receptionist", receptionistRoutes);
 app.use("/memberDetails", membersRoutes);
-app.use("/trainerDetails", trainerRoutes)
+app.use("/trainerDetails", trainerRoutes);
 
 app.use("/auth", AuthRoutes);
 
 
 app.use("/members", membersRoutes);
-app.use('/trainers',trainerRoutes);
-app.use('/announcement', announcementRoutes);
-app.use('/doctor', doctorRoutes);
-app.use('/receptionistDetails', receptionistDetailsRoutes);
-app.use('/leaves', leavesRoutes)
+app.use("/trainers", trainerRoutes);
+app.use("/announcement", announcementRoutes);
+app.use("/doctor", doctorRoutes);
+app.use("/receptionistDetails", receptionistDetailsRoutes);
+app.use("/leaves", leavesRoutes);
+app.use("/payment", paymentRoutes);
+app.use("/profile", profileRoutes);
 
 
 app.use("/memberDetails", memberDetailsRoutes );
@@ -97,7 +97,7 @@ app.use("/memberDietPlan", memberDietPlanRoutes);
 app.use("/memberAppointment", memberAppointmentRoutes);
 app.use("/payments", paymentRoutes);
 
-const port = config.server.port
+const port = config.server.port;
 
 app.listen(5400,'0.0.0.0', () =>{
     console.log(`server is running on port ${port}.`);
