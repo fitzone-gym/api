@@ -21,7 +21,7 @@ import membersRoutes from "./routes/manager/members";
 import trainerRoutes from "./routes/manager/trainer";
 import leavesRoutes from "./routes/manager/leaves";
 import doctorRoutes from "./routes/manager/doctor";
-import paymentRoutes from "./routes/manager/payment";
+import paymentStaffRoutes from "./routes/manager/paymentStaff";
 import profileRoutes from "./routes/manager/profile";
 import receptionistDetailsRoutes from "./routes/manager/receptionistDetails";
 import announcementRoutes from "./routes/manager/announcement";
@@ -72,7 +72,7 @@ app.use("/announcement", announcementRoutes);
 app.use("/doctor", doctorRoutes);
 app.use("/receptionistDetails", receptionistDetailsRoutes);
 app.use("/leaves", leavesRoutes);
-app.use("/payment", paymentRoutes);
+app.use("/payment", paymentStaffRoutes);
 app.use("/profile", profileRoutes);
 
 
