@@ -5,6 +5,6 @@ import{
 
 const router = express.Router();
 
-router.get('/:id',getMemberAppointment)
+router.get('/',getMemberAppointment)
 
 export default router

@@ -21,19 +21,19 @@ const pool = mysql.createPool({
   export const getMemberAppointment = async(req: Request, res: Response) => {
       try{
           const connection = await pool.getConnection();
-          const{first_name, last_name, email, mobile_no, password} = req.body;
+          const{user_id, first_name, last_name, selectedDate, selectedTime} = req.body;
           
           
   
           const query = "INSERT INTO users(first_name, last_name, email, phone_no, password, user_role) VALUES(?,?,?,?,?,?)"
   
           const [result]: [OkPacket, FieldPacket[]] = await connection.query(query, [
+              user_id,
               first_name,
               last_name,
-              email,
-              mobile_no,
+              selectedDate,
+              selectedTime,
               
-              1,
           ]);
   
           connection.release(); // release the connection back to the pool
