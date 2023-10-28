@@ -25,7 +25,7 @@ const pool = mysql.createPool({
           
           
   
-          const query = "INSERT INTO users(first_name, last_name, email, phone_no, password, user_role) VALUES(?,?,?,?,?,?)"
+          const query = "INSERT INTO user_appointment(user_id, first_name, last_name, selectedDate, selectedTime) VALUES(?,?,?,?,?)"
   
           const [result]: [OkPacket, FieldPacket[]] = await connection.query(query, [
               user_id,
