@@ -21,7 +21,7 @@ import membersRoutes from "./routes/manager/members";
 import trainerRoutes from "./routes/manager/trainer";
 import leavesRoutes from "./routes/manager/leaves";
 import doctorRoutes from "./routes/manager/doctor";
-import paymentStaffRoutes from "./routes/manager/paymentStaff";
+import paymentStaffRoutes from "./routes/manager/payment";
 import profileRoutes from "./routes/manager/profile";
 import receptionistDetailsRoutes from "./routes/manager/receptionistDetails";
 import announcementRoutes from "./routes/manager/announcement";
