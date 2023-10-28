@@ -32,6 +32,8 @@ import paymentDetailsRoutes from "./routes/trainer/paymentDetails";
 import trainerProfileRoutes from "./routes/trainer/trainerProfile";
 
 
+import memberDietPlanRoutes from "./routes/member/dietPlan";
+import memberAppointmentRoutes from "./routes/member/appointment";
 
 
 
@@ -90,6 +92,8 @@ app.use("/workoutSchedule", workoutScheduleRoutes);
 
 //kithsandu
 app.use("/memberDashboard", memberDashboardRoutes);
+app.use("/memberDietPlan", memberDietPlanRoutes);
+app.use("/memberAppointment", memberAppointmentRoutes);
 
 const port = config.server.port
 
