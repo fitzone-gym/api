@@ -23,6 +23,7 @@ import memberDetailsRoutesForTrainers from "./routes/trainer/memberDetails";
 import dashboardRoutes from "./routes/trainer/trainerDashboard";
 import receptionistRoutes from "./routes/receptionist/receptionist";
 
+import paymentRoutes from "./routes/member/payments"
 
 
 // import dashboardRoutes from "./routes/trainerDashboard";
@@ -72,10 +73,11 @@ app.use("/landingPage", landingPageRoute);
 app.use("/contactUsSubmition", contactUs);
 
 app.use("/ourTrainers", trainerDetailsRoutes);
-app.use("/workoutSchedule", workoutScheduleRoutes)
+app.use("/workoutSchedule", workoutScheduleRoutes);
+app.use("/payments", paymentRoutes);
 
 const port = config.server.port
 
-app.listen(port, () =>{
+app.listen(5400,'0.0.0.0', () =>{
     console.log(`server is running on port ${port}.`);
 }) 
