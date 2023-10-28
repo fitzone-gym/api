@@ -10,6 +10,6 @@ router.get("/memberDetails/:user_id", getMemberDetailsById)  // this user_id is 
 router.get("/helthInjuries/:user_id",getHelthAndInjuries);
 router.get("/schedule/:user_id", getWorkoutSchedule);
 router.post("/schedule", createWorkoutSchedule);
-router.get("/deleteSchedule/:exercise_id",deleteExersice);
+router.delete("/deleteSchedule/:deleteId",deleteExersice);
 
 export default router
