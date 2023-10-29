@@ -61,7 +61,7 @@ const pool = mysql.createPool({
             console.error("Error in getworkout schedule ", err);
             res
             .status(500)
-            .json(generateResponse(false, null, "Error fetching workout schedule details"));
+            .json(generateResponse(false, null, "Error creating workout schedule "));
 
         }
     }

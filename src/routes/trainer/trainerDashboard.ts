@@ -7,6 +7,6 @@ router.get('/', async(req, res) =>{
     res.send('dashboard');
 })
 router.get("/announcement", getAvailableNotices);
-router.get("/totalMember", getMemberCount);
+router.get("/totalMember/:user_id", getMemberCount);
 
 export default router;

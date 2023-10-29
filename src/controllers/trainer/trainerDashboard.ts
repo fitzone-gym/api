@@ -35,13 +35,15 @@ export const getAvailableNotices = async (req:Request, res:Response) =>{
 }
 
 export const getMemberCount = async (req: Request, res: Response) => {
+    console.log("enteres");
+        console.log(req.params.user_id)
     try {
         const connection = await pool.getConnection();  
         //this query need to be modified. we want to get count of members which related to the paticular trainer 
-        const query = "SELECT count(*) as workingMembers FROM members"; 
+        const query = "SELECT count(*) as workingMembers FROM members where trainer_id = ? "; 
         // Execute the query
         // console.log(query);
-        const [result] = await connection.query<RowDataPacket[]>(query);
+        const [result] = await connection.query<RowDataPacket[]>(query,[req.params.user_id]);
         connection.release();
         res.status(200).json(generateResponse(true,result));
     } catch (err) {
