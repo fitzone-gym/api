@@ -12,7 +12,7 @@ import landingPageRoute from "./routes/users/landingPage";
 
 import contactUs from "./routes/receptionist/contactUs";
 import memberDetailsRoutes from "./routes/receptionist/memberDetails";
-import receptionistRoutes from "./routes/receptionist/receptionist";
+
 
 import trainerDetailsRoutes from "./routes/member/ourTrainers";
 import workoutScheduleRoutes from "./routes/member/workoutSchedule";
@@ -31,6 +31,10 @@ import dashboardRoutes from "./routes/trainer/trainerDashboard";
 import memberDashboardRoutes from "./routes/member/dashboard";
 import paymentDetailsRoutes from "./routes/trainer/paymentDetails";
 import trainerProfileRoutes from "./routes/trainer/trainerProfile";
+import receptionistRoutes from "./routes/receptionist/receptionist";
+import trainerDetailRoutes from './routes/receptionist/trainersdetails'
+import feedbackRoutes from './routes/manager/feedback'
+import dashboardroutes from './routes/receptionist/dashboard'
 
 
 import memberDietPlanRoutes from "./routes/member/dietPlan";
@@ -38,6 +42,12 @@ import memberAppointmentRoutes from "./routes/member/appointment";
 
 import paymentRoutes from "./routes/member/payments"
 
+
+/*doctor */
+import membersfordoctorRoutes from "./routes/doctor/members";
+import memberdoctorappointmentRoutes from "./routes/doctor/appointments";
+import doctorpaymentRoutes from "./routes/doctor/payments";
+import doctorleaverequestsRouts from "./routes/doctor/leaverequests";
 
 // import dashboardRoutes from "./routes/trainerDashboard";
 
@@ -48,7 +58,6 @@ import paymentRoutes from "./routes/member/payments"
 // import receptionistRoutes from './routes/receptionist'
 
 const app = express();
-
 app.use(cors());
 
 app.use(bodyParser.json());
@@ -59,9 +68,19 @@ app.get('/health', (req:Request, res:Response) => {
     res.send("Alive and well!")
 })
 
-app.use("/receptionist", receptionistRoutes);
+// app.use("/receptionist", receptionistRoutes);
 app.use("/memberDetails", membersRoutes);
 app.use("/trainerDetails", trainerRoutes);
+
+//receptionist
+app.use("/trainersdetails", trainerDetailsRoutes);
+app.use("/receptionist", receptionistRoutes)
+app.use("/trainerdet" , trainerDetailRoutes)
+app.use("/feedbacks", feedbackRoutes)
+app.use("/dashboard", dashboardroutes);
+
+
+app.use('/', homeRoutes);
 
 app.use("/auth", AuthRoutes);
 
@@ -88,6 +107,12 @@ app.use("/contactUsSubmition", contactUs);
 
 app.use("/ourTrainers", trainerDetailsRoutes);
 app.use("/workoutSchedule", workoutScheduleRoutes);
+
+app.use("/membersfordoctor", membersfordoctorRoutes);
+app.use("/memberdoctorappointment", memberdoctorappointmentRoutes);
+app.use("/doctorpayments", doctorpaymentRoutes);
+app.use("/doctorleaverequests", doctorleaverequestsRouts);
+
 
 
 

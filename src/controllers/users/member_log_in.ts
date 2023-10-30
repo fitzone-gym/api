@@ -24,7 +24,6 @@ const pool = mysql.createPool({
 
 export const MemberLogin = async (req: Request,  res: Response) => {
     try {
-
         const connection = await pool.getConnection()
         const {email, password} = req.body
         // const hashPassword = await bcrypt.hash(password, 10);
@@ -35,7 +34,7 @@ export const MemberLogin = async (req: Request,  res: Response) => {
 
         const [result]: any = await connection.query(query, [email])
 
-        if(await bcrypt.compare(password, result[0].password)){
+        if((password === result[0].password)){
             res.json(generateResponse(true,  result[0]))
             console.log('password match');            
         }else {
@@ -53,20 +52,21 @@ export const MemberLogin = async (req: Request,  res: Response) => {
 export const MemberProfile = async (req: Request, res: Response) => {
   try {
     const connection = await pool.getConnection();
-    const id: number = parseInt(req.params.id, 10);
-    const user_role: number = parseInt(req.params.user_role, 10);
+    // const id: number = parseInt(req.params.id, 10);
+    const id: number = 10002;
+    const role_id: number = parseInt(req.params.role_id, 10);
 
   
       let userDetails;
 
-      if (user_role === 3) {
+      if (role_id === 3) {
         const doctorQuery =
-          "SELECT doctors.qualification, doctors.message, doctors.facebook, doctors.twitter, doctors.instergram, users.email, users.password, users.first_name, users.last_name, users.profile_picture, users.user_role  FROM users INNER JOIN doctors ON users.id = doctors.id WHERE users.id = ?";
+          "SELECT doctors.qualification, doctors.message, doctors.facebook, doctors.twitter, doctors.instergram, users.email, users.password, users.first_name, users.last_name, users.profile_picture, users.role_id, users.phone_no  FROM users INNER JOIN doctors ON users.user_id = doctors.doctor_id WHERE users.user_id = ?";
         const [doctorResult]: any = await connection.query(doctorQuery, [id]);
         userDetails = doctorResult[0];
-      } else if (user_role === 3) {
+      } else if (role_id === 4) {
         const managerQuery =
-          "SELECT receptionist.*, users.* FROM users INNER JOIN receptionist ON users.id = receptionist.id WHERE users.id = ?";
+          "SELECT receptionist.*, users.* FROM users INNER JOIN receptionist ON users.user_id = receptionist.user_id WHERE users.user_id = ?";
         const [managerResult]: any = await connection.query(managerQuery, [id]);
         userDetails = managerResult[0];
       }
@@ -80,4 +80,41 @@ export const MemberProfile = async (req: Request, res: Response) => {
   } catch (err) {
     console.log(err);
   } 
+};
+
+
+export const updateProfile = async (req: Request, res: Response) => {
+  try {
+    const connection = await pool.getConnection(); // Use await to get a connection from the pool
+     const id: number = parseInt(req.params.id, 10);
+    const { firstname, lastname, email, contactno, message } = req.body;
+    const query =
+      "UPDATE users SET first_name = ?, last_name = ? , email = ?, phone_no = ? WHERE user_id = ? ;";
+    const [result]: [OkPacket, FieldPacket[]] = await connection.query(query, [
+      firstname,
+      lastname,
+      email,
+      contactno,
+      id
+    ]);
+
+    const queryN = "UPDATE doctors SET message = ? WHERE id = ? ;";
+    const [resultN]: [OkPacket, FieldPacket[]] = await connection.query(queryN, [
+      message,
+      id,
+    ]);
+
+    connection.release(); // Release the connection back to the pool
+
+    // Access the insertId from the result
+    const insertedId = result.insertId;
+    // Send a success response
+    res.status(200).json({
+      message: "Data inserted successfully",
+      insertedId,
+    });
+  } catch (err) {
+    console.error("Error in inserting data:", err);
+    res.status(500).json(generateResponse(false, null, "Error inserting data"));
+  }
 };
