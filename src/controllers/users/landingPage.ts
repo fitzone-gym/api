@@ -31,11 +31,11 @@ export const getCountsForCounterSection = async (req: Request, res: Response) =>
     const connection = await pool.getConnection(); // Use await to get a connection from the pool
 
     const workingMembersQuery =
-      "SELECT count(*) as workingMembers FROM users where user_role=1 AND status=1";
+      "SELECT count(*) as workingMembers FROM users where role_id=1 AND status=1";
     const courseCompleteMembersQuery =
-      "SELECT count(*) as courseCompleteMembers FROM users where user_role=1 AND status=0";
+      "SELECT count(*) as courseCompleteMembers FROM users where role_id=1 AND status=0";
     const trainerCountQuery =
-      "SELECT count(*) as workingTrainers FROM users where user_role=2 AND status=1";
+      "SELECT count(*) as workingTrainers FROM users where role_id=2 AND status=1";
     const complaintCountQuery =
       "SELECT count(*) as feedbackCount FROM feedback";
     // Execute the queries and perform a custom type assertion to inform TypeScript about the shape of the results
@@ -78,7 +78,7 @@ export const getTrainerDetails = async (req: Request, res: Response) => {
     const connection = await pool.getConnection(); // Use await to get a connection from the pool
 
     const query =
-      "SELECT users.id,users.first_name, users.last_name, users.profile_picture,trainers.expert_area FROM users inner join trainers on trainers.user_id = users.id where user_role=2 AND status=1 ";
+      "SELECT users.user_id,users.first_name, users.last_name, users.profile_picture,trainers.expert_area FROM users inner join trainers on trainers.user_id = users.user_id where role_id=2 AND status=1 ";
 
     // Execute the query and store the result in 'result'
     const [result] = await connection.query<RowDataPacket[]>(query);
@@ -102,7 +102,7 @@ export const getUserFeedbacksForTestimonial = async (req: Request, res: Response
     const connection = await pool.getConnection(); // Use await to get a connection from the pool
 
     const query =
-      "SELECT users.id, users.first_name, users.last_name, users.user_role, users.profile_picture, feedback.feedback_description FROM users INNER JOIN feedback ON feedback.sender_id = users.id WHERE category = 'gym' AND rating >= 3 ORDER BY RAND() LIMIT 3;"
+      "SELECT users.user_id, users.first_name, users.last_name, users.role_id, users.profile_picture, feedback.feedback_description FROM users INNER JOIN feedback ON feedback.sender_id = users.user_id WHERE category = 'gym' AND rating >= 3 ORDER BY RAND() LIMIT 3;"
 
     // Execute the query and store the result in 'result'
     const [result] = await connection.query<RowDataPacket[]>(query);
@@ -122,6 +122,7 @@ export const getUserFeedbacksForTestimonial = async (req: Request, res: Response
 
 //INSERT CONTACT_US FORM DATA
 export const contactUsFormSubmition = async (req: Request, res: Response) => {
+  // console.log("callme")
   try {
     const connection = await pool.getConnection(); // Use await to get a connection from the pool
     const { name, email, subject, message } = req.body;
