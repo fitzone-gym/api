@@ -29,6 +29,7 @@ import membersfordoctorRoutes from "./routes/doctor/members";
 import memberdoctorappointmentRoutes from "./routes/doctor/appointments";
 import doctorpaymentRoutes from "./routes/doctor/payments";
 import doctorleaverequestsRouts from "./routes/doctor/leaverequests";
+import doctordashboardRoutes from "./routes/doctor/dashboard";
 
 // import dashboardRoutes from "./routes/trainerDashboard";
 
@@ -83,6 +84,7 @@ app.use("/membersfordoctor", membersfordoctorRoutes);
 app.use("/memberdoctorappointment", memberdoctorappointmentRoutes);
 app.use("/doctorpayments", doctorpaymentRoutes);
 app.use("/doctorleaverequests", doctorleaverequestsRouts);
+app.use("/doctordashboard", doctordashboardRoutes);
 
 const port = config.server.port
 
