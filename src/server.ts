@@ -5,8 +5,6 @@ import cors from "cors";
 import { config } from "../config";
 
 import homeRoutes from "./routes/home";
-
-
 import AuthRoutes from "./routes/users/auth";
 import landingPageRoute from "./routes/users/landingPage";
 
@@ -25,7 +23,7 @@ import paymentStaffRoutes from "./routes/manager/payment";
 import profileRoutes from "./routes/manager/profile";
 import receptionistDetailsRoutes from "./routes/manager/receptionistDetails";
 import announcementRoutes from "./routes/manager/announcement";
-
+import managerDashboardRoutes from "./routes/manager/dashboard";
 import memberDetailsRoutesForTrainers from "./routes/trainer/memberDetails";
 import dashboardRoutes from "./routes/trainer/trainerDashboard";
 import memberDashboardRoutes from "./routes/member/dashboard";
@@ -74,7 +72,7 @@ app.use("/receptionistDetails", receptionistDetailsRoutes);
 app.use("/leaves", leavesRoutes);
 app.use("/payment", paymentStaffRoutes);
 app.use("/profile", profileRoutes);
-
+app.use("/managerDashboard", managerDashboardRoutes);
 
 app.use("/memberDetails", memberDetailsRoutes );
 
