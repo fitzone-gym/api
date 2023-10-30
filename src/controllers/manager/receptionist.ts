@@ -144,7 +144,8 @@ export const getAllReceptionists = (req: Request, res: Response) => {
                        last_name, 
                        address, 
                        email, 
-                       phone_no
+                       phone_no,
+                       u.profile_picture
                      FROM users
                     WHERE role_id = 5;`;
 

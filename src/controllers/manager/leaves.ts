@@ -36,6 +36,7 @@ export const leaveRequest = (req: Request, res: Response) => {
                  l.reason,
                  l.leave_date,
                  l.request_date, 
+                 l.no_of_leave_dates,
                  l.no_remaining_leave_date
                FROM users AS u
                INNER JOIN leave_request AS l ON u.user_id = l.user_id
@@ -175,6 +176,7 @@ export const apprleaveRequest = (req: Request, res: Response) => {
                        l.leave_date,
                        l.request_date, 
                        l.no_remaining_leave_date,
+                       l.no_of_leave_dates,
                        CASE
                        WHEN l.status = 0 THEN 'decline'
                        WHEN l.status = 2 THEN 'approve'
@@ -228,6 +230,7 @@ export const decleaveRequest = (req: Request, res: Response) => {
                        l.leave_date,
                        l.request_date, 
                        l.no_remaining_leave_date,
+                       l.no_of_leave_dates,
                        CASE
                            WHEN l.status = 0 THEN 'decline'
                            WHEN l.status = 2 THEN 'approve'

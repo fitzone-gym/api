@@ -15,10 +15,10 @@ const pool = mysql.createPool({
   queueLimit: 0,
 });
 
-const doctorGetQuery = `SELECT sp.payment_id as id,u.first_name ,u.last_name ,sp.status,sp.payment_made_date as payment_date, sp.amount  FROM staff_payment sp INNER JOIN users u on sp.user_id = u.user_id WHERE u.role_id = 3`;
+const doctorGetQuery = `SELECT sp.payment_id as id,u.first_name ,u.last_name ,sp.payment_made_date as payment_date, sp.amount  FROM staff_payment sp INNER JOIN users u on sp.user_id = u.user_id WHERE u.role_id = 3`;
 const memberGetQuery = `SELECT mp.payment_id as id,u.first_name ,u.last_name ,mp.payment_made_date as payment_date,amount  FROM member_payment mp INNER JOIN users u on mp.member_id = u.user_id `;
-const trainerGetQuery = `SELECT sp.payment_id as id,u.first_name ,u.last_name ,sp.status,sp.payment_made_date as payment_date, sp.amount  FROM staff_payment sp INNER JOIN users u on sp.user_id = u.user_id WHERE u.role_id = 2`;
-const receptionistGetQuery = `SELECT sp.payment_id as id,u.first_name ,u.last_name ,sp.status,sp.payment_made_date as payment_date, sp.amount  FROM staff_payment sp INNER JOIN users u on sp.user_id = u.user_id WHERE u.role_id = 5`;
+const trainerGetQuery = `SELECT sp.payment_id as id,u.first_name ,u.last_name ,sp.payment_made_date as payment_date, sp.amount  FROM staff_payment sp INNER JOIN users u on sp.user_id = u.user_id WHERE u.role_id = 2`;
+const receptionistGetQuery = `SELECT sp.payment_id as id,u.first_name ,u.last_name ,sp.payment_made_date as payment_date, sp.amount  FROM staff_payment sp INNER JOIN users u on sp.user_id = u.user_id WHERE u.role_id = 5`;
 
 export const getPayments = (req: Request, res: Response) => {
   try {

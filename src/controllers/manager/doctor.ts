@@ -33,7 +33,8 @@ export const getAllDoctors = (req: Request, res: Response) => {
           u.joined_date,
           u.phone_no,
           d.doctor_type,
-          d.qualification
+          d.qualification,
+          u.profile_picture
         FROM users AS u
         INNER JOIN doctors AS d ON u.user_id = d.doctor_id
         WHERE u.role_id = 3;`;
