@@ -34,12 +34,13 @@ export const getAllTrainers = (req: Request, res: Response) => {
       u.nic,
       t.working_experience, 
       u.email, 
-      u.phone_no, 
+      u.phone_no,
+      u.status, 
       t.trainer_id
       FROM users as u
       INNER JOIN 
       trainers as t ON u.user_id = t.user_id 
-      WHERE users.role_id = 2;  `;
+      WHERE u.role_id = 2  `;
 
       // Execute the query
       connection.query(query, (err, result) => {

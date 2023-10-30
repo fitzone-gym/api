@@ -44,7 +44,7 @@ export const getAllTrainers = (req: Request, res: Response) => {
                  u.phone_no, 
                FROM users AS u
                INNER JOIN trainers AS t ON u.user_id = t.user_id
-               WHERE u.role_id = 2;`;
+               WHERE u.role_id = 2`;
 
         
   

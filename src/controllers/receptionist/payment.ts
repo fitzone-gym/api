@@ -22,7 +22,7 @@ export const getPaymentDetails = async (req: Request, res: Response) => {
 try {
     const connection = await pool.getConnection(); 
 
-    const query = "SELECT * FROM staff_payment WHERE user_id = 2";
+    const query = "SELECT * FROM staff_payment WHERE user_id = 10002";
 
     // execute the query and store the result in 'result'
     const [result] = await connection.query<RowDataPacket[]>(query);   // store the data into the object
