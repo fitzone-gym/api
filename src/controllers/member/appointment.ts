@@ -19,13 +19,15 @@ const pool = mysql.createPool({
   });
 
   export const getMemberAppointment = async(req: Request, res: Response) => {
+    console.log(req.body);
+    
       try{
           const connection = await pool.getConnection();
           const{user_id, first_name, last_name, selectedDate, selectedTime} = req.body;
           
           
   
-          const query = "INSERT INTO user_appointment(user_id, first_name, last_name, selectedDate, selectedTime) VALUES(?,?,?,?,?)"
+          const query = "INSERT INTO appointments(user_id, first_name, last_name, selectedDate, selectedTime, trainer_id) VALUES(?,?,?,?,?,10003)"
   
           const [result]: [OkPacket, FieldPacket[]] = await connection.query(query, [
               user_id,
@@ -42,7 +44,7 @@ const pool = mysql.createPool({
           const insertedId = result.insertId;
           // send a sucess response
   
-          res.status(200).json({message: "Data inserted successfully", insertedId,});
+          res.status(200).json({message: "Data inserted successfully", insertedId});
           
       }
       catch (err){
