@@ -38,9 +38,57 @@ export const getDashboardDetails = (req: Request, res: Response) => {
         "select count(*) as count from users u where role_id = 2";
       const receptionistCountQuery =
         "select count(*) as count from users u where role_id = 5";
-      const memberPaymentStatsQuery =
-        "SELECT MONTH (payment_made_date) as month,YEAR (payment_made_date ) as year,SUM(amount) as amount FROM member_payment mp  \
-                          GROUP BY  MONTH (payment_made_date) ,YEAR (payment_made_date) ";
+        const memberPaymentStatsQuery = `WITH RECURSIVE PaymentSchedule AS (
+          SELECT
+              2023 AS year,
+              1 AS month
+          UNION ALL
+          SELECT
+              CASE
+                  WHEN month = 12 THEN year + 1
+                  ELSE year
+              END AS year,
+              CASE
+                  WHEN month = 12 THEN 1
+                  ELSE month + 1
+              END AS month
+          FROM PaymentSchedule
+          WHERE year <= 2024
+      )
+      
+      SELECT 
+          ps.year,
+          ps.month,
+          IFNULL(SUM(
+              CASE
+                  WHEN mp.payment_details = 'annual' THEN
+                      (mp.amount / 12) * (
+                          CASE
+                              WHEN ps.month >= MONTH(mp.payment_made_date) THEN 1
+                              ELSE 0
+                          END
+                      )
+                  WHEN mp.payment_details = '6 months' THEN
+                      (mp.amount / 6) * (
+                          CASE
+                              WHEN ps.month >= MONTH(mp.payment_made_date) AND ps.month < MONTH(mp.payment_made_date) + 6 THEN 1
+                              ELSE 0
+                          END
+                      )
+                  ELSE
+                      (mp.amount / (CASE WHEN mp.payment_details = 'monthly' THEN 1 ELSE 12 END)) * (
+                          CASE
+                              WHEN ps.month = MONTH(mp.payment_made_date) THEN 1
+                              ELSE 0
+                          END
+                      )
+              END
+          ), 0) AS amount
+      FROM PaymentSchedule ps
+      LEFT JOIN member_payment mp ON ps.year = YEAR(mp.payment_made_date)
+      GROUP BY ps.year, ps.month
+      ORDER BY ps.year, ps.month;
+      `;
       const staffPaymentStatusQuery =
         "SELECT MONTH (payment_made_date) as month,YEAR (payment_made_date ) as year,SUM(amount) as amount FROM staff_payment  \
       GROUP BY  MONTH (payment_made_date) ,YEAR (payment_made_date) ";
