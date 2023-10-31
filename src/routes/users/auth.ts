@@ -3,9 +3,9 @@ import express from "express"
 import{
     MemberRegistration,
 } from "../../controllers/users/member_registration";
-import { MemberLogin, MemberProfile , updateProfile} from "../../controllers/users/member_log_in";
-import { TrainerLogin } from "../../controllers/users/trainer_log_in";
 
+import { TrainerLogin } from "../../controllers/users/trainer_log_in";
+import { MemberLogin, MemberProfile, updateProfile } from "../../controllers/users/member_log_in";
 
 const router = express.Router()
 
