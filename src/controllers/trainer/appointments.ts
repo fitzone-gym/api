@@ -33,4 +33,3 @@ export const getAppointments =  async(req:Request, res:Response) =>{
         .json(generateResponse(false,null,"Error fetching appointments"))
     }
 }
-// aaa

@@ -132,6 +132,6 @@ app.use("/payments", paymentRoutes);
 
 const port = config.server.port;
 
-app.listen(5400, "0.0.0.0", () => {
+app.listen(port,  () => {
   console.log(`server is running on port ${port}.`);
 });
