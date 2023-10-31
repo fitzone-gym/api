@@ -38,7 +38,8 @@ export const getAllMembers = (req: Request, res: Response) => {
                u.address,
                m.package,
                u.profile_picture,
-               u.user_id
+               u.user_id,
+               m.emergency_contact
        FROM users AS u
        INNER JOIN members AS m ON u.user_id = m.user_id
        WHERE u.role_id = 1;`;

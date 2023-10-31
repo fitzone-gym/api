@@ -18,6 +18,7 @@ const pool = mysql.createPool({
 });
 
 export const getAllFeedbacks = (req: Request, res: Response) => {
+  console.log("feedback   ");
     try {
       pool.getConnection((err, connection) => {
         if (err) {
