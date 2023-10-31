@@ -35,7 +35,7 @@ import trainerProfileRoutes from "./routes/trainer/trainerProfile";
 import memberDietPlanRoutes from "./routes/member/dietPlan";
 import memberAppointmentRoutes from "./routes/member/appointment";
 
-// import memberHealthCheckAppointmentRoutes from "./routes/member/healthCheck";
+import memberHealthCheckAppointmentRoutes from "./routes/member/healthCheck";
 
 
 
@@ -97,7 +97,7 @@ app.use("/memberDashboard", memberDashboardRoutes);
 app.use("/memberDietPlan", memberDietPlanRoutes);
 app.use("/memberAppointment", memberAppointmentRoutes);
 
-// app.use("/memberHealthCheckAppointment", memberHealthCheckAppointmentRoutes);
+app.use("/memberHealthCheckAppointment", memberHealthCheckAppointmentRoutes);
 
 const port = config.server.port
 

@@ -1,10 +1,10 @@
-// import express from 'express';
-// import{
-//     getMemberHealthCheck
-// }from"../../controllers/member/healthCheck";
+import express from 'express';
+import{
+    getMemberHealthCheck
+}from"../../controllers/member/healthCheck";
 
-// const router = express.Router();
+const router = express.Router();
 
-// router.post('/',getMemberHealthCheck)
+router.post('/',getMemberHealthCheck)
 
-// export default router
+export default router
