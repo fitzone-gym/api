@@ -93,6 +93,9 @@ app.use("/workoutSchedule", workoutScheduleRoutes);
 
 const port = config.server.port
 
-app.listen(port, () =>{
+// app.listen(port, () =>{
+//     console.log(`server is running on port ${port}.`);
+// }) 
+app.listen(5400,'0.0.0.0', () =>{
     console.log(`server is running on port ${port}.`);
 }) 
