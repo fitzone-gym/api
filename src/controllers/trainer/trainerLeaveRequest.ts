@@ -27,7 +27,7 @@ export const getLeavedetails = async(req:Request, res:Response)=>{
         // console.log(user_id);
         const query = "SELECT holidays_taken FROM leave_request WHERE user_id = ? AND Status = 2  ORDER BY leave_date DESC LIMIT 1";
         const [result] = await connection.query<RowDataPacket[]>(query,[user_id]);
-        console.log(result);
+        // console.log(result);
         connection.release()
         res.status(200).json(generateResponse(true, result[0]))
         
@@ -55,7 +55,7 @@ export const makeLeaveRequest = async(req:Request, res:Response)=>{
         const connection  =  await pool.getConnection();
         const query = "INSERT INTO leave_request(request_date, leave_date, reason, no_of_leave_dates, holidays_taken, no_remaining_leave_date,user_id,Status) values (?,?,?,?,?,?,?,?)"
         const [result] = await connection.query<RowDataPacket[]>(query,[fromDate, toDate, reason, no_of_leave_dates, holidays_taken, no_remaining_leave_date, user_id, status]);
-        console.log(result);
+        // console.log(result);
         connection.release();
         res.status(201).json(generateResponse(true, "successfully created"))
 
@@ -75,7 +75,7 @@ export const getPending = async(req:Request, res:Response)=>{
         const query = "SELECT * FROM leave_request where user_id = ? and Status = 1";
         const [result] = await connection.query<RowDataPacket[]>(query,[user_id]);
         connection.release();
-        console.log(result);
+        // console.log(result);
         res.status(200).json(generateResponse(true, result));
         
 
@@ -95,7 +95,7 @@ export const getAccepted = async(req:Request, res:Response)=>{
         const query = "SELECT * FROM leave_request where user_id = ? and Status = 2";
         const [result] = await connection.query<RowDataPacket[]>(query,[user_id]);
         connection.release();
-        console.log(result);
+        // console.log(result);
         res.status(200).json(generateResponse(true, result));
 
     }catch(err){
@@ -113,7 +113,7 @@ export const getRejected = async(req:Request, res:Response)=>{
         const query = "SELECT * FROM leave_request where user_id = ? and Status = 0";
         const [result] = await connection.query<RowDataPacket[]>(query,[user_id]);
         connection.release();
-        console.log(result);
+        // console.log(result);
         res.status(200).json(generateResponse(true, result));
 
     }catch(err){
