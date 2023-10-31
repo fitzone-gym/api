@@ -3,6 +3,7 @@ import mysql from "mysql2";
 import { generateResponse } from "../../utils";
 
 import dbConfig from "../../db";
+import { generateRandomString, mailer } from "../../utils/commons";
 
 const pool = mysql.createPool({
   host: dbConfig.host,
@@ -136,7 +137,7 @@ export const addDoctor = (req: Request, res: Response) => {
         phone_no,
         role_id,
         nic,
-        password,
+        // password,
         qualification,
         address,
         message,
@@ -145,7 +146,7 @@ export const addDoctor = (req: Request, res: Response) => {
         twitter,
         doctor_type,
       } = req.body;
-
+      const password = generateRandomString(20)
       let date_ob = new Date();
       let date = date_ob.getDate();
       let month = date_ob.getMonth() + 1;
@@ -229,9 +230,26 @@ export const addDoctor = (req: Request, res: Response) => {
                         )
                       );
                   }
-                  res
-                    .status(200)
-                    .json(generateResponse(true, `Doctor added successfully`));
+                  mailer(first_name, email, password)
+                  .then(() => {
+                    res
+                      .status(200)
+                      .json(
+                        generateResponse(true, `Trainer added successfully`)
+                      );
+                  })
+                  .catch((err) => {
+                    console.error(err);
+                    res
+                      .status(500)
+                      .json(
+                        generateResponse(
+                          true,
+                          `Error while sending the email`
+                        )
+                      );
+                  });
+                  connection.release();
                 }
               );
             }

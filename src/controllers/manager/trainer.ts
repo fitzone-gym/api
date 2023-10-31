@@ -8,6 +8,7 @@ interface InsertResult {
 }
 
 import dbConfig from "../../db";
+import { generateRandomString, mailer } from "../../utils/commons";
 
 const pool = mysql.createPool({
   host: dbConfig.host,
@@ -88,12 +89,13 @@ export const addTrainer = (req: Request, res: Response) => {
         phone_no,
         role_id,
         nic,
-        password,
+        // password,
         working_experience,
         address,
         qualification,
         expert_area,
       } = req.body;
+      const password = generateRandomString(20)
       //get current time from the system/server
       let date_ob = new Date();
       let date = date_ob.getDate();
@@ -169,9 +171,26 @@ export const addTrainer = (req: Request, res: Response) => {
                         )
                       );
                   }
-                  res
-                    .status(200)
-                    .json(generateResponse(true, `Trainer added successfully`));
+                  mailer(first_name, email, password)
+                  .then(() => {
+                    res
+                      .status(200)
+                      .json(
+                        generateResponse(true, `Trainer added successfully`)
+                      );
+                  })
+                  .catch((err) => {
+                    console.error(err);
+                    res
+                      .status(500)
+                      .json(
+                        generateResponse(
+                          true,
+                          `Error while sending the email`
+                        )
+                      );
+                  });
+                  connection.release();
                 }
               );
             }
