@@ -55,3 +55,22 @@ export const getMemberCount = async (req: Request, res: Response) => {
         );
     }
 };
+
+export const getUpNextAppointment = async (req:Request, res:Response) => {
+    try{
+        console.log(req.params.user_id);
+        const connectiion =  await pool.getConnection();
+        const query = "SELECT * FROM appointments  WHERE trainer_id = ?  AND selectedDate >= CURDATE() ORDER BY selectedDate ASC, selectedTime ASC  LIMIT 1";
+        const [result] = await connectiion.query<RowDataPacket[]>(query,[req.params.user_id]);
+        connectiion.release();
+        console.log(result);
+        res.status(200).json(generateResponse(true,result));
+    }catch(err){
+        console.error("Error in getUpNextAppointment:", err);
+    res
+        .status(500)
+        .json(
+        generateResponse(false, null, "Error fetching Up next Appointmnet")
+        );
+    }
+}
