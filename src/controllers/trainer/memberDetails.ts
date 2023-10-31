@@ -31,6 +31,7 @@ try {
     connection.release();
     // If successfully processed
     res.status(200).json(generateResponse(true,result));
+    console.log(result);
 
 } catch (err) {
     console.error("Error in getMemberDetails", err);
@@ -42,7 +43,7 @@ try {
 
 export const getMemberDetailsById = async (req:Request, res:Response) => {
     try {
-        console.log(req.params.user_id)
+        // console.log(req.params.user_id)
         const connection = await pool.getConnection(); 
     
         const query = "SELECT first_name, last_name, profile_picture, dob, email, phone_no, gender from users WHERE user_id = ?";
@@ -68,5 +69,25 @@ export const getMemberDetailsById = async (req:Request, res:Response) => {
         res
         .status(500)
         .json(generateResponse(false, null, "Error fetching member details"));
+    }
+}
+
+export const getHelthAndInjuries = async (req:Request, res:Response) => {
+    console.log("entered");
+    try{
+        console.log(req.params.user_id)
+        const Connection = await pool.getConnection();
+
+        const query = "SELECT * from members WHERE user_id = ?"
+        const [result] = await Connection.query<RowDataPacket[]>(query,[req.params.user_id]);
+        Connection.release();
+        res.status(200).json(generateResponse(true,result));
+        console.log(result);
+
+    }catch(err){
+        console.error("Error in getHelthAndInjuries",err);
+        res
+        .status(500)
+        .json(generateResponse(false, null, "Error fetching helth and injuries"));
     }
 }

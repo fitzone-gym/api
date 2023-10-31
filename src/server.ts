@@ -29,7 +29,10 @@ import memberDetailsRoutesForTrainers from "./routes/trainer/memberDetails";
 import dashboardRoutes from "./routes/trainer/trainerDashboard";
 import memberDashboardRoutes from "./routes/member/dashboard";
 import paymentDetailsRoutes from "./routes/trainer/paymentDetails";
+import trainerLeavesRequestRoute from "./routes/trainer/leaveRequest";
 import trainerProfileRoutes from "./routes/trainer/trainerProfile";
+import trainerAppointmentRoutes from "./routes/trainer/appointments";
+
 
 
 
@@ -79,6 +82,8 @@ app.use("/dashboard", dashboardRoutes );
 app.use("/memberDetailsForTrainers", memberDetailsRoutesForTrainers);
 app.use("/payment" ,paymentDetailsRoutes);
 app.use("/trainerProfile", trainerProfileRoutes);
+app.use("/trainerLeaves", trainerLeavesRequestRoute);
+app.use("/trainerAppointments",trainerAppointmentRoutes);
 
 app.use("/landingPage", landingPageRoute);
 app.use("/contactUsSubmition", contactUs);
