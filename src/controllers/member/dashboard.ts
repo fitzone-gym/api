@@ -48,6 +48,7 @@ export const getMemberDietDetails = async(req: Request, res: Response)=>{
         console.log(result);
         
 
+        console.log(memberDietData)
         connection.release();
 
         res.status(200).json(generateResponse(true, {
@@ -55,7 +56,7 @@ export const getMemberDietDetails = async(req: Request, res: Response)=>{
         }))
     }
     catch(err){
-        console.error("Error is get member deit paln details", err);
+        //console.error("Error is get member deit paln details", err);
         res.status(500).json(generateResponse(false,null,"Error fetching user feedback details"));
     }
 }
