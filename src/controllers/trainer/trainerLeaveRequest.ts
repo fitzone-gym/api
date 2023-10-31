@@ -70,7 +70,7 @@ export const makeLeaveRequest = async(req:Request, res:Response)=>{
 export const getPending = async(req:Request, res:Response)=>{
     try{
         const user_id =  req.params.user_id;
-        console.log(user_id);
+        // console.log(user_id);
         const connection = await pool.getConnection();
         const query = "SELECT * FROM leave_request where user_id = ? and Status = 1";
         const [result] = await connection.query<RowDataPacket[]>(query,[user_id]);
