@@ -35,8 +35,8 @@ export const getAvailableNotices = async (req:Request, res:Response) =>{
 }
 
 export const getMemberCount = async (req: Request, res: Response) => {
-    console.log("enteres");
-        console.log(req.params.user_id)
+    // console.log("enteres");
+        // console.log(req.params.user_id)
     try {
         const connection = await pool.getConnection();  
         //this query need to be modified. we want to get count of members which related to the paticular trainer 
