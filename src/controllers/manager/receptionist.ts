@@ -145,7 +145,7 @@ export const getAllReceptionists = (req: Request, res: Response) => {
                        address, 
                        email, 
                        phone_no,
-                       u.profile_picture
+                       profile_picture
                      FROM users
                     WHERE role_id = 5;`;
 
@@ -162,7 +162,7 @@ export const getAllReceptionists = (req: Request, res: Response) => {
         }
 
         // if successfully process
-        // console.log("Hello")
+    
         res.status(200).json(generateResponse(true, result));
       });
     });

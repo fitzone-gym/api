@@ -5,8 +5,6 @@ import cors from "cors";
 import { config } from "../config";
 
 import homeRoutes from "./routes/home";
-
-
 import AuthRoutes from "./routes/users/auth";
 import landingPageRoute from "./routes/users/landingPage";
 
@@ -25,7 +23,7 @@ import paymentStaffRoutes from "./routes/manager/payment";
 import profileRoutes from "./routes/manager/profile";
 import receptionistDetailsRoutes from "./routes/manager/receptionistDetails";
 import announcementRoutes from "./routes/manager/announcement";
-
+import managerDashboardRoutes from "./routes/manager/dashboard";
 import memberDetailsRoutesForTrainers from "./routes/trainer/memberDetails";
 import dashboardRoutes from "./routes/trainer/trainerDashboard";
 import memberDashboardRoutes from "./routes/member/dashboard";
@@ -39,6 +37,10 @@ import eventRoutes from './routes/receptionist/events'
 import onCallDoctorRoutes from './routes/receptionist/doctors'
 import atendenceRoutes from "./routes/receptionist/attendence"
 
+import memberDietPlanRoutes from "./routes/member/dietPlan";
+import memberAppointmentRoutes from "./routes/member/appointment";
+
+import paymentRoutes from "./routes/member/payments";
 
 import memberDietPlanRoutes from "./routes/member/dietPlan";
 import memberAppointmentRoutes from "./routes/member/appointment";
@@ -51,6 +53,7 @@ import membersfordoctorRoutes from "./routes/doctor/members";
 import memberdoctorappointmentRoutes from "./routes/doctor/appointments";
 import doctorpaymentRoutes from "./routes/doctor/payments";
 import doctorleaverequestsRouts from "./routes/doctor/leaverequests";
+import doctordashboardRoutes from "./routes/doctor/dashboard";
 
 // import dashboardRoutes from "./routes/trainerDashboard";
 
@@ -66,10 +69,10 @@ app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.use('/', homeRoutes);
-app.get('/health', (req:Request, res:Response) => {
-    res.send("Alive and well!")
-})
+app.use("/", homeRoutes);
+app.get("/health", (req: Request, res: Response) => {
+  res.send("Alive and well!");
+});
 
 // app.use("/receptionist", receptionistRoutes);
 app.use("/memberDetails", membersRoutes);
@@ -89,7 +92,6 @@ app.use('/', homeRoutes);
 
 app.use("/auth", AuthRoutes);
 
-
 app.use("/members", membersRoutes);
 app.use("/trainers", trainerRoutes);
 app.use("/announcement", announcementRoutes);
@@ -98,13 +100,13 @@ app.use("/receptionistDetails", receptionistDetailsRoutes);
 app.use("/leaves", leavesRoutes);
 app.use("/payment", paymentStaffRoutes);
 app.use("/profile", profileRoutes);
+app.use("/managerDashboard", managerDashboardRoutes);
 
+app.use("/memberDetails", memberDetailsRoutes);
 
-app.use("/memberDetails", memberDetailsRoutes );
-
-app.use("/dashboard", dashboardRoutes );
+app.use("/dashboard", dashboardRoutes);
 app.use("/memberDetailsForTrainers", memberDetailsRoutesForTrainers);
-app.use("/payment" ,paymentDetailsRoutes);
+app.use("/payment", paymentDetailsRoutes);
 app.use("/trainerProfile", trainerProfileRoutes);
 
 app.use("/landingPage", landingPageRoute);
@@ -117,8 +119,7 @@ app.use("/membersfordoctor", membersfordoctorRoutes);
 app.use("/memberdoctorappointment", memberdoctorappointmentRoutes);
 app.use("/doctorpayments", doctorpaymentRoutes);
 app.use("/doctorleaverequests", doctorleaverequestsRouts);
-
-
+app.use("/doctordashboard", doctordashboardRoutes);
 
 
 //kithsandu
@@ -129,6 +130,6 @@ app.use("/payments", paymentRoutes);
 
 const port = config.server.port;
 
-app.listen(5400,'0.0.0.0', () =>{
-    console.log(`server is running on port ${port}.`);
-}) 
+app.listen(5400, "0.0.0.0", () => {
+  console.log(`server is running on port ${port}.`);
+});
