@@ -21,7 +21,7 @@ export const getAppointments =  async(req:Request, res:Response) =>{
     try{
         const connection =  await pool.getConnection();
         const trainer_id = req.params.trainer_id;
-        const query = "SELECT * FROM appointments WHERE trainer_id = ? AND selectedDate >= CURDATE() ORDER BY MONTH(selectedDate)";
+        const query = "SELECT * FROM appointments WHERE trainer_id = ? AND selectedDate >= CURDATE() ORDER BY selectedDate ASC";
         const [result] = await connection.query<RowDataPacket[]>(query, [trainer_id]);
         connection.release();
         res.status(200).json(generateResponse(true, result))
