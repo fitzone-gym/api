@@ -34,7 +34,7 @@ try {
     const query = "SELECT * FROM users WHERE email = ? AND role_id = 2"
 
     const [result]: any = await connection.query(query, [email])
-    console.log(result)
+    // console.log(result)
     if(result.length){
         if(await bcrypt.compare(password, result[0].password)){
             res.json(generateResponse(true,  result[0]))

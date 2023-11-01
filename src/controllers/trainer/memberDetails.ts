@@ -62,7 +62,7 @@ export const getMemberDetailsById = async (req:Request, res:Response) => {
             ...result[0],
             age
         }));
-        console.log(result);
+        // console.log(result);
     
     } catch (err) {
         console.error("Error in getMemberDetails", err);
@@ -73,7 +73,7 @@ export const getMemberDetailsById = async (req:Request, res:Response) => {
 }
 
 export const getHelthAndInjuries = async (req:Request, res:Response) => {
-    console.log("entered");
+    // console.log("entered");
     try{
         console.log(req.params.user_id)
         const Connection = await pool.getConnection();
@@ -82,7 +82,7 @@ export const getHelthAndInjuries = async (req:Request, res:Response) => {
         const [result] = await Connection.query<RowDataPacket[]>(query,[req.params.user_id]);
         Connection.release();
         res.status(200).json(generateResponse(true,result));
-        console.log(result);
+        // console.log(result);
 
     }catch(err){
         console.error("Error in getHelthAndInjuries",err);
