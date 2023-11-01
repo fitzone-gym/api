@@ -41,9 +41,12 @@ import onCallDoctorRoutes from './routes/receptionist/doctors'
 import atendenceRoutes from "./routes/receptionist/attendence"
 
 
-
+//kithsandu
 import memberDietPlanRoutes from "./routes/member/dietPlan";
 import memberAppointmentRoutes from "./routes/member/appointment";
+import memberAppointmentHistoryRoutes from "./routes/member/appointmentHistory";
+
+import memberHealthCheckAppointmentRoutes from "./routes/member/healthCheck";
 
 import paymentRoutes from "./routes/member/payments"
 import memberProfileRoutes from "./routes/member/memberProfile";
@@ -133,6 +136,9 @@ app.use("/memberDashboard", memberDashboardRoutes);
 app.use("/memberDietPlan", memberDietPlanRoutes);
 app.use("/memberAppointment", memberAppointmentRoutes);
 app.use("/payments", paymentRoutes);
+app.use("/memberAppointmentHistory", memberAppointmentHistoryRoutes);
+
+app.use("/memberHealthCheckAppointment", memberHealthCheckAppointmentRoutes);
 
 const port = config.server.port;
 

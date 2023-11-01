@@ -5,6 +5,6 @@ import{
 
 const router = express.Router();
 
-router.get('/',getMemberAppointment)
+router.post('/',getMemberAppointment)
 
 export default router

@@ -18,21 +18,20 @@ const pool = mysql.createPool({
     queueLimit: 0,
   });
 
-  export const getMemberAppointment = async(req: Request, res: Response) => {
+  export const getMemberHealthCheck = async(req: Request, res: Response) => {
     console.log(req.body);
     
       try{
           const connection = await pool.getConnection();
-          const{user_id, first_name, last_name, selectedDate, selectedTime} = req.body;
+          const{user_id, selectedReason, selectedDate, selectedTime} = req.body;
           
           
   
-          const query = "INSERT INTO appointments(user_id, first_name, last_name, selectedDate, selectedTime, trainer_id) VALUES(?,?,?,?,?,10003)"
+          const query = "INSERT INTO member_doctor_appointments(member_id,reason, appointment_date, appointment_slot) VALUES(?,?,?,?)"
   
           const [result]: [OkPacket, FieldPacket[]] = await connection.query(query, [
               user_id,
-              first_name,
-              last_name,
+              selectedReason,
               selectedDate,
               selectedTime,
               
