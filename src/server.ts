@@ -46,6 +46,8 @@ import memberDietPlanRoutes from "./routes/member/dietPlan";
 import memberAppointmentRoutes from "./routes/member/appointment";
 
 import paymentRoutes from "./routes/member/payments"
+import memberProfileRoutes from "./routes/member/memberProfile";
+import memberUpdateRoutes from "./routes/member/memberUpdate";
 
 
 /*doctor */
@@ -122,6 +124,8 @@ app.use("/memberdoctorappointment", memberdoctorappointmentRoutes);
 app.use("/doctorpayments", doctorpaymentRoutes);
 app.use("/doctorleaverequests", doctorleaverequestsRouts);
 app.use("/doctordashboard", doctordashboardRoutes);
+app.use("/memberprofile", memberProfileRoutes);
+app.use("/memberUpdate", memberUpdateRoutes);
 
 
 //kithsandu

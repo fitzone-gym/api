@@ -21,6 +21,10 @@ const pool = mysql.createPool({
 interface ResultType {
     trainerName: string;
     memberCount: number;
+    member_id: number;
+    trainer_id: number;
+    amount: number;
+    package_details: string;
   }
 
 
@@ -55,7 +59,7 @@ export const getIntent = async (req:Request, res:Response) => {
         // create a PaymentIntent
         const paymentIntent = await stripe.paymentIntents.create({
             amount: req.body.amount,
-            currency: "usd",
+            currency: "LKR",
             automatic_payment_methods: {
                 enabled: true,
             },
@@ -69,3 +73,64 @@ export const getIntent = async (req:Request, res:Response) => {
     }
 }
 
+export const postPackageDetails =async(req:Request, res:Response) => {
+    try{
+        const member_id = req.body.user_id;
+        const trainer_id = req.body.trainer_id;
+        const package_details = req.body.package_details;
+        const amount=parseInt(req.body.amount)/100;
+        console.log(req.body);
+
+        // get expire date
+        const today = new Date();
+        const expire_date = new Date(today);
+        // Add one month to the expiration date
+        console.log("Package Details--------",package_details);
+        {package_details === "Monthly" ? (
+            expire_date.setMonth(today.getMonth() + 1)
+        ): package_details === "6 Month" ? (
+            expire_date.setMonth(today.getMonth() + 6)
+        ): (
+            expire_date.setMonth(today.getMonth() + 12)
+        )
+        }
+        // expire_date.setMonth(today.getMonth() + 12);
+        console.log("TODAY",new Date());
+        console.log("EXPIRE DATE",expire_date);
+
+        const connection = await pool.getConnection();
+        
+        const query = "INSERT INTO member_payment (member_id , amount, trainer_id, payment_details, payment_made_date, expire_date ) values (?,?,?,?,?,?)"
+
+        const [result] = await connection.query<RowDataPacket[]>(query,[member_id, amount, trainer_id,package_details, new Date(), expire_date]);
+        console.log(result);
+
+        connection.release();
+
+        res.status(201).json(generateResponse(true,"successfully created"));
+    }
+    catch(err){
+        console.error("Error in add payment details:",err);
+        res
+        .status(500)
+        .json(generateResponse(false, null, "Error fetching user feedback details"));
+    }
+}
+
+export const getpaymentsDetails = async(req:Request, res:Response) => {
+    console.log("user_________id",req.params.user_id)
+    try{
+      const connection = await pool.getConnection();
+      const query = `SELECT m.payment_id ,m.amount, m.member_id,DATE_FORMAT(m.payment_made_date, '%Y-%m-%d') AS payment_date ,DATE_FORMAT(m.expire_date, '%Y-%m-%d') AS expire_date, TIME(m.payment_made_date) AS payment_time, m.payment_details ,u.first_name, u.last_name, u.nic, u.phone_no , u.email from member_payment m inner join users u ON m.member_id = u.user_id where m.member_id = ?`;
+      const [result] = await connection.query<RowDataPacket[]>(query, [req.params.user_id]);
+  
+      console.log("Trainer payments details",result[0]);
+      connection.release();
+  
+      res.status(200).json(generateResponse(true, result[0]));
+  
+    }catch(err){
+      console.error("Error in getPaymentDetails", err);
+      res.status(500).json(generateResponse(false,null, "Error fetching data from Payment details"));
+  }
+  }
