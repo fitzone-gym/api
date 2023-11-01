@@ -64,6 +64,11 @@ try {
 
     const AnnouncemntQuery = " SELECT * FROM announcement where receiver = 'receptionist' ";
     const [dashbordannouncement] = await connection.query<RowDataPacket[]>(AnnouncemntQuery);
+
+    const DoctorAvailability = " SELECT count(*)  from leave_request where user_id=10006 && CURDATE() BETWEEN DATE(request_date) AND DATE(leave_date) ";
+    const [availability] = await connection.query<RowDataPacket[]>(
+      DoctorAvailability
+    );
     
     
     connection.release();
@@ -80,8 +85,10 @@ try {
         announcementtitle  : dashbordannouncement[0].title,
         announcementbody  : dashbordannouncement[0].description,
         TotalonCallDocCount : totalOnCallDocResult[0].TotalonCallDoccount,
-        EventsCount : totalEventResult[0].Totaleventcount
-    };
+        EventsCount : totalEventResult[0].Totaleventcount,
+        DoctorAvailability : totalEventResult[0].availability
+    }
+
 
     res.status(200).json(generateResponse(true, counts));
 

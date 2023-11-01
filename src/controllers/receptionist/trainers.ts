@@ -30,17 +30,18 @@ export const getAllTrainers = (req: Request, res: Response) => {
       }
 
       const query = `SELECT u.first_name, 
-      u.last_name, 
-      u.nic,
-      t.working_experience, 
-      u.email, 
-      u.phone_no,
-      u.status, 
-      t.trainer_id
-      FROM users as u
-      INNER JOIN 
-      trainers as t ON u.user_id = t.user_id 
-      WHERE u.role_id = 2  `;
+       u.last_name, 
+       u.nic,
+       t.working_experience, 
+       u.email, 
+       u.phone_no,
+       u.status, 
+       t.trainer_id,
+       (SELECT COUNT(*) FROM members m WHERE m.trainer_id = t.user_id) AS member_count
+FROM users as u
+INNER JOIN trainers as t ON u.user_id = t.user_id 
+WHERE u.role_id = 2
+  `;
 
       // Execute the query
       connection.query(query, (err, result) => {

@@ -9,7 +9,8 @@ import AuthRoutes from "./routes/users/auth";
 import landingPageRoute from "./routes/users/landingPage";
 
 import contactUs from "./routes/receptionist/contactUs";
-import memberDetailsRoutes from "./routes/receptionist/memberDetails";
+// import memberDetailsRoutes from "./routes/receptionist/memberDetails";
+import memberDetailsRoutesN from "./routes/receptionist/memberDetailsN";
 
 
 import trainerDetailsRoutes from "./routes/member/ourTrainers";
@@ -42,10 +43,10 @@ import memberAppointmentRoutes from "./routes/member/appointment";
 
 import paymentRoutes from "./routes/member/payments";
 
-import memberDietPlanRoutes from "./routes/member/dietPlan";
-import memberAppointmentRoutes from "./routes/member/appointment";
+// import memberDietPlanRoutes from "./routes/member/dietPlan";
+// import memberAppointmentRoutes from "./routes/member/appointment";
 
-import paymentRoutes from "./routes/member/payments"
+// import paymentRoutes from "./routes/member/payments"
 
 
 /*doctor */
@@ -102,7 +103,8 @@ app.use("/payment", paymentStaffRoutes);
 app.use("/profile", profileRoutes);
 app.use("/managerDashboard", managerDashboardRoutes);
 
-app.use("/memberDetails", memberDetailsRoutes);
+// app.use("/memberDetails", memberDetailsRoutes);
+app.use("/memberDetailsN", memberDetailsRoutesN);
 
 app.use("/dashboard", dashboardRoutes);
 app.use("/memberDetailsForTrainers", memberDetailsRoutesForTrainers);

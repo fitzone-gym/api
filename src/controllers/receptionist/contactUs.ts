@@ -19,7 +19,7 @@ export const contactUsRequestView = async (req: Request, res: Response) => {
     const connection = await pool.getConnection(); // Use await to get a connection from the pool
 
     const query =
-      "SELECT contact_us_submitions.submition_id, contact_us_submitions.name, contact_us_submitions.email, contact_us_submitions.message, contact_us_submitions.date, contact_us_submitions.reply_or_not_state, contact_us_reply_submitions.message as reply_message from contact_us_submitions left join contact_us_reply_submitions on contact_us_submitions.submition_id = contact_us_reply_submitions.reply_submition_id ";
+      "SELECT contact_us_submitions.submition_id, contact_us_submitions.name, contact_us_submitions.email, contact_us_submitions.message, contact_us_submitions.date, contact_us_submitions.reply_or_not_state, contact_us_reply_submitions.message as reply_message from contact_us_submitions left join contact_us_reply_submitions on contact_us_submitions.submition_id = contact_us_reply_submitions.reply_submition_id order by (contact_us_submitions.reply_or_not_state) ";
 
     // Execute the query and store the result in 'result'
     const [result] = await connection.query<RowDataPacket[]>(query);
