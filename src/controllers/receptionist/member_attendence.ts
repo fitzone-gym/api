@@ -229,7 +229,7 @@ const pool = mysql.createPool({
         }
   
         const query =
-         "INSERT INTO member_attendence('member_id','Checkin') VALUES (?, ?)";
+         "INSERT INTO member_attendence('member_id','Checkin', Date) VALUES (?, ? , CURRENTDATE())";
 
         
   
@@ -247,6 +247,10 @@ const pool = mysql.createPool({
                 generateResponse(false, null, "Error fetching attendence")
               );
           }
+
+          res
+          .status(200)
+          .json(generateResponse(true, result));
         });
       });
     } catch (err) {
@@ -292,14 +296,18 @@ const pool = mysql.createPool({
                 generateResponse(false, null, "Error fetching attendence")
               );
           }
+
+          res
+          .status(200)
+          .json(generateResponse(true, result));
         });
       });
     } catch (err) {
-      console.error("Error in adding member attendence:", err);
+      console.error("Error in adding member checkout:", err);
       res
         .status(500)
         .json(
-          generateResponse(false, null, "Error fetching getting member attendence details")
+          generateResponse(false, null, "Error adding the member checkout")
         );
     }
   };
