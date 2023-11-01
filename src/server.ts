@@ -29,7 +29,10 @@ import memberDetailsRoutesForTrainers from "./routes/trainer/memberDetails";
 import dashboardRoutes from "./routes/trainer/trainerDashboard";
 import memberDashboardRoutes from "./routes/member/dashboard";
 import paymentDetailsRoutes from "./routes/trainer/paymentDetails";
+import trainerLeavesRequestRoute from "./routes/trainer/leaveRequest";
 import trainerProfileRoutes from "./routes/trainer/trainerProfile";
+import trainerAppointmentRoutes from "./routes/trainer/appointments";
+
 import receptionistRoutes from "./routes/receptionist/receptionist";
 import trainerDetailRoutes from './routes/receptionist/trainersdetails'
 import feedbackRoutes from './routes/manager/feedback'
@@ -38,15 +41,17 @@ import eventRoutes from './routes/receptionist/events'
 import onCallDoctorRoutes from './routes/receptionist/doctors'
 import atendenceRoutes from "./routes/receptionist/attendence"
 
+
+//kithsandu
 import memberDietPlanRoutes from "./routes/member/dietPlan";
 import memberAppointmentRoutes from "./routes/member/appointment";
+import memberAppointmentHistoryRoutes from "./routes/member/appointmentHistory";
 
-import paymentRoutes from "./routes/member/payments";
+import memberHealthCheckAppointmentRoutes from "./routes/member/healthCheck";
 
-// import memberDietPlanRoutes from "./routes/member/dietPlan";
-// import memberAppointmentRoutes from "./routes/member/appointment";
-
-// import paymentRoutes from "./routes/member/payments"
+import paymentRoutes from "./routes/member/payments"
+import memberProfileRoutes from "./routes/member/memberProfile";
+import memberUpdateRoutes from "./routes/member/memberUpdate";
 
 
 /*doctor */
@@ -72,7 +77,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use("/", homeRoutes);
 app.get("/health", (req: Request, res: Response) => {
-  res.send("Alive and well!");
+    res.send("Alive and well!");
 });
 
 // app.use("/receptionist", receptionistRoutes);
@@ -110,6 +115,8 @@ app.use("/dashboard", dashboardRoutes);
 app.use("/memberDetailsForTrainers", memberDetailsRoutesForTrainers);
 app.use("/payment", paymentDetailsRoutes);
 app.use("/trainerProfile", trainerProfileRoutes);
+app.use("/trainerLeaves", trainerLeavesRequestRoute);
+app.use("/trainerAppointments",trainerAppointmentRoutes);
 
 app.use("/landingPage", landingPageRoute);
 app.use("/contactUsSubmition", contactUs);
@@ -122,6 +129,8 @@ app.use("/memberdoctorappointment", memberdoctorappointmentRoutes);
 app.use("/doctorpayments", doctorpaymentRoutes);
 app.use("/doctorleaverequests", doctorleaverequestsRouts);
 app.use("/doctordashboard", doctordashboardRoutes);
+app.use("/memberprofile", memberProfileRoutes);
+app.use("/memberUpdate", memberUpdateRoutes);
 
 
 //kithsandu
@@ -129,9 +138,12 @@ app.use("/memberDashboard", memberDashboardRoutes);
 app.use("/memberDietPlan", memberDietPlanRoutes);
 app.use("/memberAppointment", memberAppointmentRoutes);
 app.use("/payments", paymentRoutes);
+app.use("/memberAppointmentHistory", memberAppointmentHistoryRoutes);
+
+app.use("/memberHealthCheckAppointment", memberHealthCheckAppointmentRoutes);
 
 const port = config.server.port;
 
-app.listen(5400, "0.0.0.0", () => {
+app.listen(port,  () => {
   console.log(`server is running on port ${port}.`);
 });

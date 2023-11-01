@@ -7,6 +7,7 @@ import mysql, {
 import { generateResponse } from "../../utils";
 
 import dbConfig from "../../db";
+import { log } from "console";
 
 const pool = mysql.createPool({
     host: dbConfig.host,
@@ -21,42 +22,36 @@ const pool = mysql.createPool({
 
 interface ResultType{
 
-    calories_per_day: number;
-    steps_per_day: number;
-    water_per_day: number;
-    workout_days: number;
-    special_announcements: number;
+    weight: number;
+    height: number;
+    
 }
 
 
 
-export const getMemberDietDetails = async(req: Request, res: Response)=>{
+export const getMemberAppointmentHistory = async(req: Request, res: Response)=>{
     try{
 
         const member_id = req.params.id
+        console.log("member_____ID",member_id)
         const connection = await pool.getConnection();
 
-        console.log(member_id);
-        
+        const query="SELECT selectedDate, selectedTime from appointments where user_id = ?";
 
-        const query = "SELECT calories_per_day,steps_per_day,water_per_day from diet_plan where member_id = ?";
-        
+        // const query = "SELECT calories_per_day,steps_per_day,water_per_day from diet_plan where member_id = ?";        
         const [result] = await connection.query<RowDataPacket[]>(query, [member_id]);
+        // const memberDietData = result[0];
+        console.log(result)
+     
 
-        const memberDietData = result[0];
-
-        console.log(result);
-        
-
-        // console.log(memberDietData)
         connection.release();
 
-        res.status(200).json(generateResponse(true, {
-            ...memberDietData
-        }))
+        res.status(200).json(generateResponse(true, result));
     }
     catch(err){
-        //console.error("Error is get member deit paln details", err);
+        console.error("Error is get member appointment history details", err);
         res.status(500).json(generateResponse(false,null,"Error fetching user feedback details"));
     }
 }
+
+
