@@ -36,6 +36,8 @@ import memberDietPlanRoutes from "./routes/member/dietPlan";
 import memberAppointmentRoutes from "./routes/member/appointment";
 
 import paymentRoutes from "./routes/member/payments"
+import memberProfileRoutes from "./routes/member/memberProfile";
+import memberUpdateRoutes from "./routes/member/memberUpdate";
 
 
 // import dashboardRoutes from "./routes/trainerDashboard";
@@ -88,7 +90,8 @@ app.use("/contactUsSubmition", contactUs);
 
 app.use("/ourTrainers", trainerDetailsRoutes);
 app.use("/workoutSchedule", workoutScheduleRoutes);
-
+app.use("/memberprofile", memberProfileRoutes);
+app.use("/memberUpdate", memberUpdateRoutes);
 
 
 //kithsandu

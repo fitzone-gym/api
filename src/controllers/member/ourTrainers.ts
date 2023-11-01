@@ -91,3 +91,21 @@ export const getTrainerDetailsbyID = async(req: Request, res: Response) => {
         .json(generateResponse(false, null, "Error fetching user feedback details"));
     }
 }
+
+export const getCurrentUserDetailsbyID = async(req:Request, res:Response) => {
+    console.log("user_________id",req.params.user_id)
+    try{
+      const connection = await pool.getConnection();
+      const query = `SELECT m.member_id, m.payment_details, m.trainer_id ,u.first_name, u.last_name from member_payment m inner join users u ON m.member_id = u.user_id where m.member_id = ?`;
+      const [result] = await connection.query<RowDataPacket[]>(query, [req.params.user_id]);
+  
+      console.log("Member details",result[0]);
+      connection.release();
+  
+      res.status(200).json(generateResponse(true, result[0]));
+  
+    }catch(err){
+      console.error("Error in getPaymentMemberDetails", err);
+      res.status(500).json(generateResponse(false,null, "Error fetching data from Payment Member details"));
+  }
+  }

@@ -48,7 +48,7 @@ export const getMemberDietDetails = async(req: Request, res: Response)=>{
         console.log(result);
         
 
-        console.log(memberDietData)
+        // console.log(memberDietData)
         connection.release();
 
         res.status(200).json(generateResponse(true, {
