@@ -18,6 +18,7 @@ const pool = mysql.createPool({
   queueLimit: 0,
 });
 
+
 export const getCount = async (req: Request, res: Response) => {
 try {
     const connection = await pool.getConnection(); 
@@ -59,7 +60,7 @@ try {
     const [todayAttendenceResult] = await connection.query<RowDataPacket[]>(todayAttendenceQuery);
 
     //count for attendence today in the gym
-    const currentAttendenceQuery = "select COUNT(*) AS CurrentAttendence from member_attendence where Date = DATE(curdate()) AND checkout = NULL ";
+    const currentAttendenceQuery = "select COUNT(*) AS CurrentAttendence from member_attendence where Date = current_date() AND checkout = NULL ";
     const [currentAttendenceResult] = await connection.query<RowDataPacket[]>(currentAttendenceQuery);
 
     const AnnouncemntQuery = " SELECT * FROM announcement where receiver = 'receptionist' ";
@@ -79,6 +80,7 @@ try {
         currentAttendenceCount: currentAttendenceResult[0].CurrentAttendence,
         announcementtitle  : dashbordannouncement[0].title,
         announcementbody  : dashbordannouncement[0].description,
+        announcementDate : dashbordannouncement[0].create_date,
         TotalonCallDocCount : totalOnCallDocResult[0].TotalonCallDoccount,
         EventsCount : totalEventResult[0].Totaleventcount
     };

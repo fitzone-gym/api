@@ -25,7 +25,10 @@ import receptionistRoutes from "./routes/receptionist/receptionist";
 import trainerDetailRoutes from './routes/receptionist/trainersdetails'
 import feedbackRoutes from './routes/manager/feedback'
 import dashboardroutes from './routes/receptionist/dashboard'
-
+import eventRoutes from './routes/receptionist/events'
+import onCallDoctorRoutes from './routes/receptionist/doctors'
+import atendenceRoutes from "./routes/receptionist/attendence"
+import receptionistleaverequestsRouts from "./routes/receptionist/leaverequest";
 
 
 /*doctor */
@@ -66,6 +69,9 @@ app.use("/receptionist", receptionistRoutes)
 app.use("/trainerdet" , trainerDetailRoutes)
 app.use("/feedbacks", feedbackRoutes)
 app.use("/dashboard", dashboardroutes);
+app.use("/receptionist/doctors", onCallDoctorRoutes);
+app.use("/receptionist/attendence", atendenceRoutes );
+app.use("/receptionistleaverequests", receptionistleaverequestsRouts);
 
 
 app.use('/', homeRoutes);

@@ -217,6 +217,7 @@ const pool = mysql.createPool({
 
   export const addMemberattendence = (req: Request, res: Response) => {
     try {
+      let reqBody = req.body;
       pool.getConnection((err, connection) => {
         if (err) {
           console.error("Error connecting to the database:", err);
@@ -228,12 +229,12 @@ const pool = mysql.createPool({
         }
   
         const query =
-         `SELECT * FROM member_attendence as a INNER JOIN users as u on a.member_id = u.user_id;`;
+         "INSERT INTO member_attendence('member_id','Checkin', Date) VALUES (?, ? , CURRENTDATE())";
 
         
   
         // Execute the query
-        connection.query(query, (err, result) => {
+        connection.query(query, [reqBody.member_id, reqBody.Checkin], (err, result) => {
          
           // Release the connection back to the pool
           connection.release();
@@ -246,20 +247,67 @@ const pool = mysql.createPool({
                 generateResponse(false, null, "Error fetching attendence")
               );
           }
-  
-          // if successfully process
-          // console.log("Hello")
+
           res
-            .status(200)
-            .json(generateResponse(true, result));
+          .status(200)
+          .json(generateResponse(true, result));
         });
       });
     } catch (err) {
-      console.error("Error in getting member attendence:", err);
+      console.error("Error in adding member attendence:", err);
       res
         .status(500)
         .json(
           generateResponse(false, null, "Error fetching getting member attendence details")
+        );
+    }
+  };
+
+
+  export const addMembercheckout = (req: Request, res: Response) => {
+    try {
+      let reqBody = req.body;
+      pool.getConnection((err, connection) => {
+        if (err) {
+          console.error("Error connecting to the database:", err);
+          return res
+            .status(500)
+            .json(
+              generateResponse(false, null, "Database connection error")
+            );
+        }
+  
+        const query =
+         "UPDATE member_attendence SET('Checkout') VALUES (?) where member_id = ?";
+
+        
+  
+        // Execute the query
+        connection.query(query, [reqBody.checkout, reqBody.member_id ], (err, result) => {
+         
+          // Release the connection back to the pool
+          connection.release();
+  
+          if (err) {
+            console.error("Error fetching attendence:", err);
+            return res
+              .status(500)
+              .json(
+                generateResponse(false, null, "Error fetching attendence")
+              );
+          }
+
+          res
+          .status(200)
+          .json(generateResponse(true, result));
+        });
+      });
+    } catch (err) {
+      console.error("Error in adding member checkout:", err);
+      res
+        .status(500)
+        .json(
+          generateResponse(false, null, "Error adding the member checkout")
         );
     }
   };
