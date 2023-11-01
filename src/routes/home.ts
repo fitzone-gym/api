@@ -1,8 +1,9 @@
 import express from "express"
- const router = express.Router()
+import { startUp } from "../controllers/home";
 
- router.get('/', async(req, res) =>{
-    res.send('home');
- })
+const router = express.Router()
 
- export default router
+router.get("/", startUp);
+
+
+export default router
