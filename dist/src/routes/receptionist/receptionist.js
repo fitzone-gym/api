@@ -1,0 +1,23 @@
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = __importDefault(require("express"));
+// import { getTrainerDetails } from "../../controllers/receptionist/receptionist";
+// import { getMembersDetails } from "../../controllers/receptionist/receptionist";
+const announcements_1 = require("../../controllers/receptionist/announcements");
+const payment_1 = require("../../controllers/receptionist/payment");
+const trainers_1 = require("../../controllers/receptionist/trainers");
+const member_attendence_1 = require("../../controllers/receptionist/member_attendence");
+const router = express_1.default.Router();
+// router.get("/", getTrainerDetails);
+// router.get("/", getMembersDetails);
+router.get("/announcements", announcements_1.get_receptionist_Announcement);
+router.get("/Payment", payment_1.getPaymentDetails);
+router.get("/trainerDetails", trainers_1.getAllTrainers);
+router.get("/memberattendence", member_attendence_1.getmemberattendence);
+router.get("/alldayattendence", member_attendence_1.getalldaymemberattendence);
+router.get("/searchattendence", member_attendence_1.searchMemberAttendence);
+router.get("/searchallattendence", member_attendence_1.searchAllMemberAttendence);
+exports.default = router;
