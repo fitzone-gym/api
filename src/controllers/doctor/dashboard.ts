@@ -37,32 +37,31 @@ export const getMemberAppointmentsCounts = async (req: Request, res: Response) =
     // ";
 
     const query = `
-    SELECT 
-        MONTHNAME(DATE_ADD(DATE_SUB(NOW(), INTERVAL 12 MONTH), INTERVAL m.month - 1 MONTH)) AS appointment_month, 
-        IFNULL(COUNT(appointment_date), 0) AS no_of_appointments
-    FROM 
-        (SELECT 1 AS month
-        UNION SELECT 2
-        UNION SELECT 3
-        UNION SELECT 4
-        UNION SELECT 5
-        UNION SELECT 6
-        UNION SELECT 7
-        UNION SELECT 8
-        UNION SELECT 9
-        UNION SELECT 10
-        UNION SELECT 11
-        UNION SELECT 12) AS m
-    LEFT JOIN 
-        member_doctor_appointments AS a
-    ON 
-        MONTH(a.appointment_date) = m.month
-    WHERE 
-        a.appointment_date >= DATE_SUB(NOW(), INTERVAL 12 MONTH) OR a.appointment_date IS NULL
-    GROUP BY 
-        m.month
-    ORDER BY 
-        m.month DESC;
+  SELECT 
+    DATE_FORMAT(all_months.appointment_date, '%Y-%b') AS month,
+    IFNULL(COUNT(member_doctor_appointments.appointment_date), 0) AS num_appointments,
+    LAG(COUNT(member_doctor_appointments.appointment_date), 1, 0) OVER (ORDER BY all_months.appointment_date DESC) AS num_appointments_prev,
+    CASE 
+        WHEN LAG(COUNT(member_doctor_appointments.appointment_date), 1, 0) OVER (ORDER BY all_months.appointment_date DESC) < COUNT(member_doctor_appointments.appointment_date) THEN 1
+        ELSE 0
+    END AS status,
+    COUNT(member_doctor_appointments.appointment_date) - LAG(COUNT(member_doctor_appointments.appointment_date), 1, 0) OVER (ORDER BY all_months.appointment_date DESC) AS value
+FROM 
+    (
+        SELECT 
+            DATE_FORMAT(DATE_SUB(DATE_FORMAT(NOW(), '%Y-%m-01'), INTERVAL 6 MONTH), '%Y-%m-%d') + INTERVAL n MONTH AS appointment_date
+        FROM 
+            (SELECT 0 AS n UNION ALL SELECT 1 UNION ALL SELECT 2 UNION ALL SELECT 3 UNION ALL SELECT 4 UNION ALL SELECT 5) AS months
+    ) AS all_months
+LEFT JOIN 
+    member_doctor_appointments
+ON 
+    DATE_FORMAT(member_doctor_appointments.appointment_date, '%Y-%m') = DATE_FORMAT(all_months.appointment_date, '%Y-%m')
+GROUP BY 
+    DATE_FORMAT(all_months.appointment_date, '%Y-%b'), all_months.appointment_date
+ORDER BY 
+    all_months.appointment_date DESC;
+
 `;
 
     const [result] = await connection.query<RowDataPacket[]>(query);
